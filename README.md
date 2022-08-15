@@ -8,4 +8,5 @@ Versão x86-64
 ![image](https://user-images.githubusercontent.com/110510237/183270259-02ed07db-12f8-450f-ad53-13c29c7412ac.png)
 
 Versão linux fedora 35 X11
-/home/joao/Pictures/Screenshots/Screenshot from 2022-08-14 23-26-25.png
+
+![Screenshot from 2022-08-14 23-26-25](https://user-images.githubusercontent.com/110510237/184567730-610bb5a6-7a17-4349-8cca-f10bd1a2ec41.png)
