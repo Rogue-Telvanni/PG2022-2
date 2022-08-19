@@ -116,23 +116,36 @@ int main()
 		glfwPollEvents();
 
 		// Limpa o buffer de cor
-		glClearColor(0.8f, 0.8f, 0.8f, 1.0f); //cor de fundo
+		glClearColor(0.2f, 0.3f, 0.3f, 1.0f); //cor de fundo
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		glLineWidth(10);
-		glPointSize(20);
-
+		glPointSize(15);
+		//triangulo 1
 		// Chamada de desenho - drawcall
 		// Poligono Preenchido - GL_TRIANGLES
-		glUniform4f(colorLoc, 0.0f, 0.0f, 1.0f, 1.0f); //enviando cor para variável uniform inputColor
+		glUniform4f(colorLoc, 0.2f, 0.4f, 0.6f, 1.0f); //enviando cor para variável uniform inputColor
 		glBindVertexArray(VAO);
 		glDrawArrays(GL_TRIANGLES, 0, 3);
+		// pontos
+		glUniform4f(colorLoc, 0.0f, 0.2f, 0.4f, 1.0f); //enviando cor para variável uniform inputColor
+		glDrawArrays(GL_POINTS, 0, 3);
+		// contorno
+		glUniform4f(colorLoc, 0.7f, 0.4f, 0.1f, 1.0f); //enviando cor para variável uniform inputColor
+		glDrawArrays(GL_LINE_LOOP, 0, 3);
 
+		//triangulo2
 		// Chamada de desenho - drawcall
 		// CONTORNO - GL_LINE_LOOP
 		// PONTOS - GL_POINTS
-		glUniform4f(colorLoc, 1.0f, 0.0f, 1.0f, 1.0f); //enviando cor para variável uniform inputColor
-		glDrawArrays(GL_POINTS, 0, 3);
+		glUniform4f(colorLoc, 1.0f, 0.83f, 0.91f, 1.0f); //enviando cor para variável uniform inputColor
+		glDrawArrays(GL_TRIANGLES, 3, 3);
+		// pontos
+		glUniform4f(colorLoc, 0.67f, 1.0f, 0.60f, 1.0f); //enviando cor para variável uniform inputColor
+		glDrawArrays(GL_POINTS, 3, 3);
+		// contorno
+		glUniform4f(colorLoc, 0.51f, 0.98f, 1.0f, 1.0f); //enviando cor para variável uniform inputColor
+		glDrawArrays(GL_LINE_LOOP, 3, 3);
 		glBindVertexArray(0);
 
 		// Troca os buffers da tela
@@ -214,10 +227,14 @@ int setupGeometry()
 	// Cada atributo do vértice (coordenada, cores, coordenadas de textura, normal, etc)
 	// Pode ser arazenado em um VBO único ou em VBOs separados
 	GLfloat vertices[] = {
-		-0.5, -0.5, 0.0,
-		 0.5, -0.5, 0.0,
-		 0.0, 0.5, 0.0,
-		 //outro triangulo vai aqui
+		// primeiro triangulo
+		-0.75, -0.5, 0.0,
+		 -0.25, -0.5, 0.0,
+		 -0.50, 0.0, 0.0,
+		 //segundo triangulo
+		 0.25, -0.5, 0.0,
+		 0.75, -0.5, 0.0,
+		 0.5, 0.0, 0.0,
 	};
 
 	GLuint VBO, VAO;
