@@ -39,7 +39,7 @@ include CMakeFiles/rules.ninja
 #############################################
 # Logical path to working directory; prefix for absolute paths.
 
-cmake_ninja_workdir = /home/joao/college/processamentoGrafico/Semana1/PG2022-2-main/Linux/build/
+cmake_ninja_workdir = /home/joao/college/processamentoGrafico/Atividade$ 1/PG2022-2/Linux/build/
 # =============================================================================
 # Object build statements for EXECUTABLE target main
 
@@ -49,17 +49,17 @@ cmake_ninja_workdir = /home/joao/college/processamentoGrafico/Semana1/PG2022-2-m
 
 build cmake_object_order_depends_target_main: phony || CMakeFiles/main.dir
 
-build CMakeFiles/main.dir/HelloTriangle/Source.cpp.o: CXX_COMPILER__main_Debug /home/joao/college/processamentoGrafico/Semana1/PG2022-2-main/Linux/HelloTriangle/Source.cpp || cmake_object_order_depends_target_main
+build CMakeFiles/main.dir/HelloTriangle/Source.cpp.o: CXX_COMPILER__main_Debug /home/joao/college/processamentoGrafico/Atividade$ 1/PG2022-2/Linux/HelloTriangle/Source.cpp || cmake_object_order_depends_target_main
   DEP_FILE = CMakeFiles/main.dir/HelloTriangle/Source.cpp.o.d
   FLAGS = -g
-  INCLUDES = -I/home/joao/college/processamentoGrafico/Semana1/PG2022-2-main/Linux/dependencies/GLFW3/include -I/home/joao/college/processamentoGrafico/Semana1/PG2022-2-main/Linux/dependencies/GLFW3/lib -I/home/joao/college/processamentoGrafico/Semana1/PG2022-2-main/Linux/dependencies/GLFW3 -I/home/joao/college/processamentoGrafico/Semana1/PG2022-2-main/Linux/dependencies/GLAD/include
+  INCLUDES = -I"/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Linux/dependencies/GLFW3/include" -I"/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Linux/dependencies/GLFW3/lib" -I"/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Linux/dependencies/GLFW3" -I"/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Linux/dependencies/GLAD/include"
   OBJECT_DIR = CMakeFiles/main.dir
   OBJECT_FILE_DIR = CMakeFiles/main.dir/HelloTriangle
 
-build CMakeFiles/main.dir/dependencies/GLAD/src/glad.c.o: C_COMPILER__main_Debug /home/joao/college/processamentoGrafico/Semana1/PG2022-2-main/Linux/dependencies/GLAD/src/glad.c || cmake_object_order_depends_target_main
+build CMakeFiles/main.dir/dependencies/GLAD/src/glad.c.o: C_COMPILER__main_Debug /home/joao/college/processamentoGrafico/Atividade$ 1/PG2022-2/Linux/dependencies/GLAD/src/glad.c || cmake_object_order_depends_target_main
   DEP_FILE = CMakeFiles/main.dir/dependencies/GLAD/src/glad.c.o.d
   FLAGS = -g
-  INCLUDES = -I/home/joao/college/processamentoGrafico/Semana1/PG2022-2-main/Linux/dependencies/GLFW3/include -I/home/joao/college/processamentoGrafico/Semana1/PG2022-2-main/Linux/dependencies/GLFW3/lib -I/home/joao/college/processamentoGrafico/Semana1/PG2022-2-main/Linux/dependencies/GLFW3 -I/home/joao/college/processamentoGrafico/Semana1/PG2022-2-main/Linux/dependencies/GLAD/include
+  INCLUDES = -I"/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Linux/dependencies/GLFW3/include" -I"/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Linux/dependencies/GLFW3/lib" -I"/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Linux/dependencies/GLFW3" -I"/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Linux/dependencies/GLAD/include"
   OBJECT_DIR = CMakeFiles/main.dir
   OBJECT_FILE_DIR = CMakeFiles/main.dir/dependencies/GLAD/src
 
@@ -86,7 +86,7 @@ build main: CXX_EXECUTABLE_LINKER__main_Debug CMakeFiles/main.dir/HelloTriangle/
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /home/joao/college/processamentoGrafico/Semana1/PG2022-2-main/Linux/build && /usr/bin/ccmake -S/home/joao/college/processamentoGrafico/Semana1/PG2022-2-main/Linux -B/home/joao/college/processamentoGrafico/Semana1/PG2022-2-main/Linux/build
+  COMMAND = cd "/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Linux/build" && /usr/bin/ccmake -S"/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Linux" -B"/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Linux/build"
   DESC = Running CMake cache editor...
   pool = console
   restat = 1
@@ -98,7 +98,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /home/joao/college/processamentoGrafico/Semana1/PG2022-2-main/Linux/build && /usr/bin/cmake --regenerate-during-build -S/home/joao/college/processamentoGrafico/Semana1/PG2022-2-main/Linux -B/home/joao/college/processamentoGrafico/Semana1/PG2022-2-main/Linux/build
+  COMMAND = cd "/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Linux/build" && /usr/bin/cmake --regenerate-during-build -S"/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Linux" -B"/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Linux/build"
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -114,7 +114,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 # =============================================================================
 
 #############################################
-# Folder: /home/joao/college/processamentoGrafico/Semana1/PG2022-2-main/Linux/build
+# Folder: /home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Linux/build
 
 build all: phony main
 

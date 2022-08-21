@@ -1,7 +1,4 @@
 # ninja log v5
-1	341	1660525270193524723	CMakeFiles/main.dir/HelloTriangle/Source.cpp.o	27e10fe3c1f44483
-1	169	1660525270020526722	CMakeFiles/main.dir/dependencies/GLAD/src/glad.c.o	441cb3de14605d21
-1	345	1660524907320719280	CMakeFiles/OPENGLUNI.dir/HelloTriangle/Source.cpp.o	9284c130b5f50bd8
-1	150	1660524907125721534	CMakeFiles/OPENGLUNI.dir/dependencies/GLAD/src/glad.c.o	64d80ae7ece71a32
-2	227	1660530272409374011	main	34f13a594bcf10da
-1	132	1660524984736824403	OPENGLUNI	236bdf03f9f905ef
+1	237	1660878615143211479	CMakeFiles/main.dir/dependencies/GLAD/src/glad.c.o	da643694cfd84f3
+1	481	1660878615388210363	CMakeFiles/main.dir/HelloTriangle/Source.cpp.o	a833e2e6859446e0
+482	623	1660878615529209721	main	34f13a594bcf10da

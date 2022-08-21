@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/joao/college/processamentoGrafico/Semana1/PG2022-2-main/Linux/build"
+			"value" : "/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Linux/build"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -587,7 +587,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/joao/college/processamentoGrafico/Semana1/PG2022-2-main/Linux"
+			"value" : "/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Linux"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -1162,42 +1162,6 @@
 			"value" : "OFF"
 		},
 		{
-			"name" : "OPENGLUNI_BINARY_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "/home/joao/college/processamentoGrafico/Semana1/PG2022-2-main/Linux/build"
-		},
-		{
-			"name" : "OPENGLUNI_IS_TOP_LEVEL",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "ON"
-		},
-		{
-			"name" : "OPENGLUNI_SOURCE_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "/home/joao/college/processamentoGrafico/Semana1/PG2022-2-main/Linux"
-		},
-		{
 			"name" : "OPENGL_EGL_INCLUDE_DIR",
 			"properties" : 
 			[
@@ -1351,7 +1315,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/joao/college/processamentoGrafico/Semana1/PG2022-2-main/Linux/build"
+			"value" : "/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Linux/build"
 		},
 		{
 			"name" : "main_IS_TOP_LEVEL",
@@ -1375,43 +1339,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/joao/college/processamentoGrafico/Semana1/PG2022-2-main/Linux"
-		},
-		{
-			"name" : "ptg_BINARY_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "/home/joao/college/processamentoGrafico/Semana1/PG2022-2-main/Linux/build"
-		},
-		{
-			"name" : "ptg_IS_TOP_LEVEL",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "ON"
-		},
-		{
-			"name" : "ptg_SOURCE_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "/home/joao/college/processamentoGrafico/Semana1/PG2022-2-main/Linux"
+			"value" : "/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Linux"
 		}
 	],
 	"kind" : "cache",

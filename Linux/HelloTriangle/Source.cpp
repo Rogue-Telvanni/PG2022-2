@@ -10,11 +10,13 @@
 #include <iostream>
 #include <string>
 #include <assert.h>
+#include <math.h>
 
 using namespace std;
 
 // GLAD
 #include <glad/glad.h>
+// #include <gl.h>
 
 // GLFW
 #include <GLFW/glfw3.h>
@@ -26,9 +28,11 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 // Prot�tipos das fun��es
 int setupShader();
 int setupGeometry();
+void draw_circle(GLfloat, GLfloat, GLfloat);
 
 // Dimens�es da janela (pode ser alterado em tempo de execu��o)
 const GLuint WIDTH = 800, HEIGHT = 600;
+const float PI = 3.1415926;
 
 // C�digo fonte do Vertex Shader (em GLSL): ainda hardcoded
 const GLchar* vertexShaderSource = "#version 450\n"
@@ -126,14 +130,16 @@ int main()
 		// Poligono Preenchido - GL_TRIANGLES
 		glUniform4f(colorLoc, 0.0f, 0.0f, 1.0f, 1.0f); //enviando cor para vari�vel uniform inputColor
 		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+   		draw_circle(0, 0, 0.5);
 
-		// Chamada de desenho - drawcall
-		// CONTORNO - GL_LINE_LOOP
-		// PONTOS - GL_POINTS
-		glUniform4f(colorLoc, 1.0f, 0.0f, 1.0f, 1.0f); //enviando cor para vari�vel uniform inputColor
-		glDrawArrays(GL_POINTS, 0, 3);
-		glBindVertexArray(0);
+		// glDrawArrays(GL_TRIANGLE_FAN, 0, 3);
+
+		// // Chamada de desenho - drawcall
+		// // CONTORNO - GL_LINE_LOOP
+		// // PONTOS - GL_POINTS
+		// // glUniform4f(colorLoc, 1.0f, 0.0f, 1.0f, 1.0f); //enviando cor para vari�vel uniform inputColor
+		// // glDrawArrays(GL_POINTS, 0, 3);
+		// glBindVertexArray(0);
 
 		// Troca os buffers da tela
 		glfwSwapBuffers(window);
@@ -145,20 +151,40 @@ int main()
 	return 0;
 }
 
+void draw_circle(GLfloat centerX, GLfloat centerY, GLfloat radius)
+{
+	int i;
+	int triangleAmount = 20; //# of triangles used to draw circle
+
+	// GLfloat radius = 0.8f; //radius
+	
+	GLfloat twicePi = 2.0f * PI;
+
+	glaglBegin(GL_TRIANGLE_FAN);
+	glVertex2f(centerX, centerY); // center of circle
+	for (i = 0; i <= triangleAmount; i++)
+	{
+		glVertex2f(
+			centerX + (radius * cos(i * twicePi / triangleAmount)),
+			centerY + (radius * sin(i * twicePi / triangleAmount)));
+	}
+	glEnd();
+}
+
 // Fun��o de callback de teclado - s� pode ter uma inst�ncia (deve ser est�tica se
 // estiver dentro de uma classe) - � chamada sempre que uma tecla for pressionada
 // ou solta via GLFW
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
+void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode)
 {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
 }
 
-//Esta fun��o est� basntante hardcoded - objetivo � compilar e "buildar" um programa de
-// shader simples e �nico neste exemplo de c�digo
-// O c�digo fonte do vertex e fragment shader est� nos arrays vertexShaderSource e
-// fragmentShader source no ini�io deste arquivo
-// A fun��o retorna o identificador do programa de shader
+// Esta fun��o est� basntante hardcoded - objetivo � compilar e "buildar" um programa de
+//  shader simples e �nico neste exemplo de c�digo
+//  O c�digo fonte do vertex e fragment shader est� nos arrays vertexShaderSource e
+//  fragmentShader source no ini�io deste arquivo
+//  A fun��o retorna o identificador do programa de shader
 int setupShader()
 {
 	// Vertex shader
@@ -172,7 +198,8 @@ int setupShader()
 	if (!success)
 	{
 		glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-		std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+		std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n"
+				  << infoLog << std::endl;
 	}
 	// Fragment shader
 	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
