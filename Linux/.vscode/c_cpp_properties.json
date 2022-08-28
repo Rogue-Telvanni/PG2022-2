@@ -4,9 +4,9 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/dependencies/GLAD/src/",
-                "${workspaceFolder}/dependencies/GLAD/include/",
-                "${workspaceFolder}/dependencies/GLFW3/"
+                "${workspaceFolder}/dependencies/GLAD/src",
+                "${workspaceFolder}/dependencies/GLFW3",
+                "${workspaceFolder}/dependencies/GLAD/include"
             ],
             "forcedInclude": [
                 "${workspaceFolder}/dependencies/GLAD/include/glad/glad.h"

@@ -33,14 +33,14 @@
 		// 	},
 		// 	"detail": "compiler: /usr/bin/gcc"
 		// },
-		{
-			"label": "cmake",
-			"type": "shell",
-			"options": {
-				"cwd": "${workspaceRoot}/build"
-			},
-			"command": "cmake \"MinGW Makefiles\"  ${workspaceRoot}"
-		},
+		// {
+		// 	"label": "cmake",
+		// 	"type": "shell",
+		// 	"options": {
+		// 		"cwd": "${workspaceRoot}/build"
+		// 	},
+		// 	"command": "cmake \"MinGW Makefiles\"  ${workspaceRoot}"
+		// },
 		{
 			"type": "cmake",
 			"label": "CMake: build",
