@@ -6,7 +6,8 @@
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/dependencies/GLAD/src",
                 "${workspaceFolder}/dependencies/GLFW3",
-                "${workspaceFolder}/dependencies/GLAD/include"
+                "${workspaceFolder}/dependencies/GLAD/include",
+                "${workspaceFolder}/HelloTriangle/shaders"
             ],
             "forcedInclude": [
                 "${workspaceFolder}/dependencies/GLAD/include/glad/glad.h"

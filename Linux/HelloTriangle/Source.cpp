@@ -50,15 +50,17 @@ const GLuint pisoSegment = doorSecondtSegment + 3;
 // Dimens�es da janela (pode ser alterado em tempo de execu��o)
 const GLuint WIDTH = 800, HEIGHT = 600;
 // C�digo fonte do Vertex Shader (em GLSL): ainda hardcoded
+
+// Código fonte do Vertex Shader (em GLSL): ainda hardcoded
 const GLchar* vertexShaderSource = "#version 450\n"
 "layout (location = 0) in vec3 position;\n"
 "void main()\n"
 "{\n"
-//...pode ter mais linhas de c�digo aqui!
+//...pode ter mais linhas de código aqui!
 "gl_Position = vec4(position.x, position.y, position.z, 1.0);\n"
 "}\0";
 
-//C�difo fonte do Fragment Shader (em GLSL): ainda hardcoded
+//Códifo fonte do Fragment Shader (em GLSL): ainda hardcoded
 const GLchar* fragmentShaderSource = "#version 450\n"
 "uniform vec4 inputColor;\n"
 "out vec4 color;\n"
@@ -66,6 +68,28 @@ const GLchar* fragmentShaderSource = "#version 450\n"
 "{\n"
 "color = inputColor;\n"
 "}\n\0";
+
+// //shaders for triangle if 3 colors
+// const GLchar* vertexShaderSource = "#version 450\n"
+// "layout (location = 0) in vec3 aPos;\n"   // the position variable has attribute position 0
+// "layout (location = 1) in vec3 aColor;\n" // the color variable has attribute position 1
+// "out vec3 ourColor;\n" // output a color to the fragment shader
+// "void main()\n"
+// "{\n"
+// 	"gl_Position = vec4(aPos, 1.0);\n"
+//     "ourColor = aColor;\n" // set ourColor to the input color we got from the vertex data
+// "}\0";
+
+// //C�difo fonte do Fragment Shader (em GLSL): ainda hardcoded
+// const GLchar* fragmentShaderSource = "#version 450\n"
+// "out vec4 FragColor;\n"  
+// "in vec3 ourColor;\n"
+// "void main()\n"
+// "{\n"
+// "FragColor = vec4(ourColor, 1.0);\n"
+// "}\n\0";
+
+int spiralsize;
 
 // Fun��o MAIN
 int main()
@@ -124,8 +148,8 @@ int main()
 	// que n�o est� nos buffers
 	GLint colorLoc = glGetUniformLocation(shaderID, "inputColor");
 	assert(colorLoc > -1);
-	
 	glUseProgram(shaderID);
+	
 	
 
 	// Loop da aplica��o - "game loop"
@@ -143,39 +167,43 @@ int main()
 
 		// Chamada de desenho - drawcall
 		// Poligono Preenchido - GL_TRIANGLES
-		glUniform4f(colorLoc, 0.74f, 0.62f, 0.21f, 1.0f); //enviando cor para variável uniform inputColor
+		// float timeValue = glfwGetTime();
+		// float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
+		// float redValue = (cos(timeValue) / 2.0f) + 0.5f;
+		// float blueValue = (sin(timeValue) / 2.0f) + 0.5f;
+		glUniform4f(colorLoc, 1.0f, 0.0f, 0.0f, 1.0f); //enviando cor para variável uniform inputColor
 		glBindVertexArray(VAO);
-		//glDrawArrays(GL_LINE_LOOP, 0, 150);
+		glDrawArrays(GL_LINES, 0, spiralsize / 3);
 
-		// arrays para a casa
-		glDrawArrays(GL_TRIANGLE_FAN, 0, houseSegments + 2);
-		// telhado
-		glUniform4f(colorLoc, 0.0f, 0.2f, 0.4f, 1.0f); //enviando cor para variável uniform inputColor
-		glDrawArrays(GL_TRIANGLES, roofStarSegmnet, roofSize);
-		glUniform4f(colorLoc, 0.3f, 0.2f, 0.6f, 1.0f); //enviando cor para variável uniform inputColor
-		glDrawArrays(GL_LINE_LOOP, roofStarSegmnet, roofSize);
-		//casa
-		glUniform4f(colorLoc, 0.1f, 0.4f, 0.1f, 1.0f); //enviando cor para variável uniform inputColor
-		glDrawArrays(GL_TRIANGLES, houseFirstSegment, housesize);
-		glUniform4f(colorLoc, 0.4f, 0.4f, 0.2f, 1.0f); //enviando cor para variável uniform inputColor
-		glDrawArrays(GL_LINES, houseFirstSegment, housesize);
-		glUniform4f(colorLoc, 0.1f, 0.4f, 0.1f, 1.0f); //enviando cor para variável uniform inputColor
-		glDrawArrays(GL_TRIANGLES, houseSecondSegment, housesize);
-		glUniform4f(colorLoc, 0.4f, 0.4f, 0.2f, 1.0f); //enviando cor para variável uniform inputColor
-		glDrawArrays(GL_LINES, houseSecondSegment, housesize);
-		//porta
-		glUniform4f(colorLoc, 0.4f, 0.6f, 0.3f, 1.0f); //enviando cor para variável uniform inputColor
-		glDrawArrays(GL_TRIANGLES, doorFirsSegment, doorSize);
-		glUniform4f(colorLoc, 0.7f, 0.4f, 0.4f, 1.0f); //enviando cor para variável uniform inputColor
-		glDrawArrays(GL_LINE_LOOP, doorFirsSegment, doorSize);
-		glUniform4f(colorLoc, 0.4f, 0.6f, 0.3f, 1.0f); //enviando cor para variável uniform inputColor
-		glDrawArrays(GL_TRIANGLES, doorSecondtSegment, doorSize);
-		glUniform4f(colorLoc, 0.7f, 0.4f, 0.4f, 1.0f); //enviando cor para variável uniform inputColor
-		glDrawArrays(GL_LINE_LOOP, doorSecondtSegment, doorSize);
-		//piso
-		glUniform4f(colorLoc, 0.7f, 0.6f, 0.0f, 1.0f); //enviando cor para variável uniform inputColor
-		glDrawArrays(GL_LINE_LOOP, pisoSegment, piso);
-		glBindVertexArray(0);
+		// // arrays para a casa
+		// glDrawArrays(GL_TRIANGLE_FAN, 0, houseSegments + 2);
+		// // telhado
+		// glUniform4f(colorLoc, 0.0f, 0.2f, 0.4f, 1.0f); //enviando cor para variável uniform inputColor
+		// glDrawArrays(GL_TRIANGLES, roofStarSegmnet, roofSize);
+		// glUniform4f(colorLoc, 0.3f, 0.2f, 0.6f, 1.0f); //enviando cor para variável uniform inputColor
+		// glDrawArrays(GL_LINE_LOOP, roofStarSegmnet, roofSize);
+		// //casa
+		// glUniform4f(colorLoc, 0.1f, 0.4f, 0.1f, 1.0f); //enviando cor para variável uniform inputColor
+		// glDrawArrays(GL_TRIANGLES, houseFirstSegment, housesize);
+		// glUniform4f(colorLoc, 0.4f, 0.4f, 0.2f, 1.0f); //enviando cor para variável uniform inputColor
+		// glDrawArrays(GL_LINES, houseFirstSegment, housesize);
+		// glUniform4f(colorLoc, 0.1f, 0.4f, 0.1f, 1.0f); //enviando cor para variável uniform inputColor
+		// glDrawArrays(GL_TRIANGLES, houseSecondSegment, housesize);
+		// glUniform4f(colorLoc, 0.4f, 0.4f, 0.2f, 1.0f); //enviando cor para variável uniform inputColor
+		// glDrawArrays(GL_LINES, houseSecondSegment, housesize);
+		// //porta
+		// glUniform4f(colorLoc, 0.4f, 0.6f, 0.3f, 1.0f); //enviando cor para variável uniform inputColor
+		// glDrawArrays(GL_TRIANGLES, doorFirsSegment, doorSize);
+		// glUniform4f(colorLoc, 0.7f, 0.4f, 0.4f, 1.0f); //enviando cor para variável uniform inputColor
+		// glDrawArrays(GL_LINE_LOOP, doorFirsSegment, doorSize);
+		// glUniform4f(colorLoc, 0.4f, 0.6f, 0.3f, 1.0f); //enviando cor para variável uniform inputColor
+		// glDrawArrays(GL_TRIANGLES, doorSecondtSegment, doorSize);
+		// glUniform4f(colorLoc, 0.7f, 0.4f, 0.4f, 1.0f); //enviando cor para variável uniform inputColor
+		// glDrawArrays(GL_LINE_LOOP, doorSecondtSegment, doorSize);
+		// //piso
+		// glUniform4f(colorLoc, 0.7f, 0.6f, 0.0f, 1.0f); //enviando cor para variável uniform inputColor
+		// glDrawArrays(GL_LINE_LOOP, pisoSegment, piso);
+		// glBindVertexArray(0);
 
 		// Troca os buffers da tela
 		glfwSwapBuffers(window);
@@ -357,6 +385,7 @@ GLfloat *draw_spiral(GLfloat centerX, GLfloat centerY, GLfloat centerZ, GLfloat 
 		array[(index * 3) + 2] = centerZ;
 		index++;
 	}
+	spiralsize = index;
 	cout << "index final " << index << endl;
 	for(int i; i < size; i++){
 		cout << "index " << i << "ponto " << array[i] << endl;
@@ -434,7 +463,7 @@ int setupGeometry()
 	// Cada atributo do v�rtice (coordenada, cores, coordenadas de textura, normal, etc)
 	// Pode ser arazenado em um VBO �nico ou em VBOs separados
 	
-		// static star shape
+	// static star shape
 	// GLfloat vetices[] = {
 	// 	0.0, 1.0, 0.0, // A 0
 	// 	-0.25, 0.5, 0.0, //c 1
@@ -448,8 +477,6 @@ int setupGeometry()
 	// 	0.0, -0.5, 0.0, // a 9
 	// };
 
-	
-
 	// unsigned int indices[] = {
 	// 	0,2,4,6,8,9,7,5,3,1
 	// 	// 0, 1, 2, // first triangle
@@ -459,13 +486,22 @@ int setupGeometry()
 	// 	// 9,8,6
 	// };
 
-	int segments = 200;
+	// // triangles with 3 colors
+	// GLfloat vertices[] = {
+	// 	//triangulo				cor
+	// 	-0.5f, -0.5f, 0.0f,		1.0f, 0.0f, 0.0f,
+	// 	0.0f, 0.5f, 0.0f,		0.0f, 1.0f, 0.0f,
+	// 	0.5f, -0.5f, 0.0f,		0.0f, 0.0f, 1.0f,
+	// };
+	// int sizes = sizeof(vertices);
+
+	int segments = 5;
 	// GLfloat* vertices = draw_circle(0.0f, 0.0f, 0.0f, 0.5f, segments);
 	// int sizes = (segments + 2) * 3 * sizeof(GLfloat);
-	//GLfloat* vertices = draw_spiral(0.0f, 0.0f, 0.0f, 0.5f, segments);
-	GLfloat* vertices = draw_house();
-	int sizes = totalsize * sizeof(GLfloat);
-	cout << "tamanho " << sizes << endl;
+	GLfloat* vertices = draw_spiral(0.0f, 0.0f, 0.0f, 0.5f, segments);
+	int sizes = spiralsize * 3 * sizeof(GLfloat);
+	//GLfloat* vertices = draw_house();
+	//int sizes = totalsize * sizeof(GLfloat);
 
 	GLuint VBO, VAO;
 	// int arraySize = (segments + 2) * 3 * sizeof(GLfloat);
@@ -491,8 +527,12 @@ int setupGeometry()
 	// Se está normalizado (entre zero e um)
 	// Tamanho em bytes 
 	// Deslocamento a partir do byte zero 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+	// position attribute
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void *)0);
 	glEnableVertexAttribArray(0);
+	// color attribute
+	// glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (void *)(3 * sizeof(GLfloat)));
+	// glEnableVertexAttribArray(1);
 
 	// Observe que isso é permitido, a chamada para glVertexAttribPointer registrou o VBO como o objeto de buffer de vértice 
 	// atualmente vinculado - para que depois possamos desvincular com segurança
