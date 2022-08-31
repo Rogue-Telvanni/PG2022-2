@@ -173,7 +173,7 @@ int main()
 		// float blueValue = (sin(timeValue) / 2.0f) + 0.5f;
 		glUniform4f(colorLoc, 1.0f, 0.0f, 0.0f, 1.0f); //enviando cor para variável uniform inputColor
 		glBindVertexArray(VAO);
-		glDrawArrays(GL_LINES, 0, spiralsize / 3);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
 
 		// // arrays para a casa
 		// glDrawArrays(GL_TRIANGLE_FAN, 0, houseSegments + 2);
@@ -487,19 +487,19 @@ int setupGeometry()
 	// };
 
 	// // triangles with 3 colors
-	// GLfloat vertices[] = {
-	// 	//triangulo				cor
-	// 	-0.5f, -0.5f, 0.0f,		1.0f, 0.0f, 0.0f,
-	// 	0.0f, 0.5f, 0.0f,		0.0f, 1.0f, 0.0f,
-	// 	0.5f, -0.5f, 0.0f,		0.0f, 0.0f, 1.0f,
-	// };
-	// int sizes = sizeof(vertices);
+	GLfloat vertices[] = {
+		//triangulo				cor
+		-0.5f, -0.5f, 0.0f,		//1.0f, 0.0f, 0.0f,
+		0.0f, 0.5f, 0.0f,		//0.0f, 1.0f, 0.0f,
+		0.5f, -0.5f, 0.0f,		//0.0f, 0.0f, 1.0f,
+	};
+	int sizes = sizeof(vertices);
 
 	int segments = 5;
 	// GLfloat* vertices = draw_circle(0.0f, 0.0f, 0.0f, 0.5f, segments);
 	// int sizes = (segments + 2) * 3 * sizeof(GLfloat);
-	GLfloat* vertices = draw_spiral(0.0f, 0.0f, 0.0f, 0.5f, segments);
-	int sizes = spiralsize * 3 * sizeof(GLfloat);
+	// GLfloat* vertices = draw_spiral(0.0f, 0.0f, 0.0f, 0.5f, segments);
+	// int sizes = spiralsize * 3 * sizeof(GLfloat);
 	//GLfloat* vertices = draw_house();
 	//int sizes = totalsize * sizeof(GLfloat);
 
