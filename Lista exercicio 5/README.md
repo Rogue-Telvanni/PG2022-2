@@ -10,3 +10,14 @@ Versão x86-64
 Versão linux fedora 35 X11
 
 ![Screenshot from 2022-08-14 23-26-25](https://user-images.githubusercontent.com/110510237/184567730-610bb5a6-7a17-4349-8cca-f10bd1a2ec41.png)
+
+Para o exercício 5 da lista de lista 1 foi utilizado o código dentro desta pasta as imagens de referencia estarão abaixo
+
+![Triangulso preenchidos](https://user-images.githubusercontent.com/110510237/187800239-1431499a-eb6e-4b91-9069-df081180ab08.png)
+
+![triangulos contorno](https://user-images.githubusercontent.com/110510237/187800153-da92c2ef-7380-4f3e-b516-1ff52419cdc1.png)
+
+![TriangulosPontos](https://user-images.githubusercontent.com/110510237/187800231-cddd2f86-b2ed-414f-b8a7-cd3fa8637cdb.png)
+
+
+![triangulos contorno-ponto-preenchido](https://user-images.githubusercontent.com/110510237/187800254-5ebf0023-7caa-4efb-9e67-08b50e963c8b.png)
