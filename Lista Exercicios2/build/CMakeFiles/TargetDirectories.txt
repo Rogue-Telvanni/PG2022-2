@@ -1,0 +1,3 @@
+/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Lista Exercicios2/build/CMakeFiles/main.dir
+/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Lista Exercicios2/build/CMakeFiles/edit_cache.dir
+/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Lista Exercicios2/build/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,7 @@
+# ninja log v5
+1	303	1661997256478466643	CMakeFiles/main.dir/dependencies/GLAD/src/glad.c.o	c67a847d53087bd7
+1	573	1661997256748462761	CMakeFiles/main.dir/HelloTriangle/Shader.cpp.o	d70f6078a6d027b9
+3	358	1661997463922484071	CMakeFiles/main.dir/dependencies/GLAD/src/glad.c.o	ecee90e65617e3e6
+6	615	1661997464180480361	CMakeFiles/main.dir/HelloTriangle/Shader.cpp.o	bb9cab62da76e12f
+2	1804	1661997465369463266	CMakeFiles/main.dir/HelloTriangle/Source.cpp.o	57cc20bfefeaece1
+1806	1971	1661997465534460894	main	c75ac47f43716268
