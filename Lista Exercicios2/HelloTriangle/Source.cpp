@@ -81,7 +81,7 @@ int main()
 	int width, height;
 	glfwGetFramebufferSize(window, &width, &height);
 	//glViewport(0, 0, width, height);
-	glViewport(width/2, height/2, width/2, height/2);
+	//glViewport(width/2, height/2, width/2, height/2);
 
 
 	// Compilando e buildando o programa de shader
@@ -93,7 +93,7 @@ int main()
 	// Cria��o da matriz de proje��o paralela ortogr�fica
 	glm::mat4 projection = glm::mat4(1); //matriz identidade
 	//projection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, -1.0f, 1.0f);
-	projection = glm::ortho(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f);
+	projection = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f, -1.0f, 1.0f);
 
 
 	
@@ -107,7 +107,7 @@ int main()
 		glfwPollEvents();
 
 		// Limpa o buffer de cor
-		glClearColor(0.8f, 0.8f, 0.8f, 1.0f); //cor de fundo
+		glClearColor(0.8f, 0.8f, 0.8f, 1.0f); // cor de fundo
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		glLineWidth(10);
@@ -115,16 +115,60 @@ int main()
 
 		// Chamada de desenho - drawcall
 		// Poligono Preenchido - GL_TRIANGLES
-		shader.setVec4("inputColor",1.0f, 1.0f, 0.0f, 1.0f); //enviando cor para vari�vel uniform inputColor
+		// viewPort 1
+		glViewport(0, height / 2, width / 2, height / 2);
+		shader.setVec4("inputColor", 1.0f, 1.0f, 0.0f, 1.0f); // enviando cor para vari�vel uniform inputColor
 		glBindVertexArray(VAO);
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 
 		// Chamada de desenho - drawcall
 		// CONTORNO - GL_LINE_LOOP
 		// PONTOS - GL_POINTS
-		shader.setVec4("inputColor",1.0f, 0.0f, 1.0f, 1.0f); //enviando cor para vari�vel uniform inputColor
+		shader.setVec4("inputColor", 1.0f, 0.0f, 1.0f, 1.0f); // enviando cor para vari�vel uniform inputColor
 		glDrawArrays(GL_LINE_LOOP, 0, 3);
-		
+
+		// viewPort 2
+		glViewport(width / 2, height / 2, width / 2, height / 2);
+		// Chamada de desenho - drawcall
+		// Poligono Preenchido - GL_TRIANGLES
+		shader.setVec4("inputColor", 1.0f, 1.0f, 0.0f, 1.0f); // enviando cor para vari�vel uniform inputColor
+		glBindVertexArray(VAO);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+
+		// Chamada de desenho - drawcall
+		// CONTORNO - GL_LINE_LOOP
+		// PONTOS - GL_POINTS
+		shader.setVec4("inputColor", 1.0f, 0.0f, 1.0f, 1.0f); // enviando cor para vari�vel uniform inputColor
+		glDrawArrays(GL_LINE_LOOP, 0, 3);
+
+		// viewPort 3
+		glViewport(0, 0, width / 2, height / 2);
+		// Chamada de desenho - drawcall
+		// Poligono Preenchido - GL_TRIANGLES
+		shader.setVec4("inputColor", 1.0f, 1.0f, 0.0f, 1.0f); // enviando cor para vari�vel uniform inputColor
+		glBindVertexArray(VAO);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+
+		// Chamada de desenho - drawcall
+		// CONTORNO - GL_LINE_LOOP
+		// PONTOS - GL_POINTS
+		shader.setVec4("inputColor", 1.0f, 0.0f, 1.0f, 1.0f); // enviando cor para vari�vel uniform inputColor
+		glDrawArrays(GL_LINE_LOOP, 0, 3);
+
+		// viewPort 4
+		glViewport(width / 2, 0, width / 2, height / 2);
+		// Chamada de desenho - drawcall
+		// Poligono Preenchido - GL_TRIANGLES
+		shader.setVec4("inputColor", 1.0f, 1.0f, 0.0f, 1.0f); // enviando cor para vari�vel uniform inputColor
+		glBindVertexArray(VAO);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+
+		// Chamada de desenho - drawcall
+		// CONTORNO - GL_LINE_LOOP
+		// PONTOS - GL_POINTS
+		shader.setVec4("inputColor", 1.0f, 0.0f, 1.0f, 1.0f); // enviando cor para vari�vel uniform inputColor
+		glDrawArrays(GL_LINE_LOOP, 0, 3);
+
 		glBindVertexArray(0);
 
 		// Troca os buffers da tela
