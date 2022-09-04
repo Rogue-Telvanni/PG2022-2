@@ -28,7 +28,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 int setupShader();
 int setupGeometry();
 GLfloat* draw_circle(GLfloat, GLfloat, GLfloat, GLfloat, GLint);
-GLfloat* draw_spiral(GLfloat, GLfloat, GLfloat, GLfloat, GLint);
+GLfloat* draw_spiral(GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLint);
 GLfloat* draw_house();
 
 // tamanhos dos verices para o deseho da casa
@@ -47,47 +47,48 @@ const GLuint doorFirsSegment = houseSecondSegment + 3;
 const GLuint doorSecondtSegment = doorFirsSegment + 3;
 const GLuint pisoSegment = doorSecondtSegment + 3;
 
+
 // Dimens�es da janela (pode ser alterado em tempo de execu��o)
 const GLuint WIDTH = 800, HEIGHT = 600;
 // C�digo fonte do Vertex Shader (em GLSL): ainda hardcoded
 
-// Código fonte do Vertex Shader (em GLSL): ainda hardcoded
-// const GLchar* vertexShaderSource = "#version 450\n"
-// "layout (location = 0) in vec3 position;\n"
-// "void main()\n"
-// "{\n"
-// //...pode ter mais linhas de código aqui!
-// "gl_Position = vec4(position.x, position.y, position.z, 1.0);\n"
-// "}\0";
-
-// //Códifo fonte do Fragment Shader (em GLSL): ainda hardcoded
-// const GLchar* fragmentShaderSource = "#version 450\n"
-// "uniform vec4 inputColor;\n"
-// "out vec4 color;\n"
-// "void main()\n"
-// "{\n"
-// "color = inputColor;\n"
-// "}\n\0";
-
-//shaders for triangle if 3 colors
+//Código fonte do Vertex Shader (em GLSL): ainda hardcoded
 const GLchar* vertexShaderSource = "#version 450\n"
-"layout (location = 0) in vec3 aPos;\n"   // the position variable has attribute position 0
-"layout (location = 1) in vec3 aColor;\n" // the color variable has attribute position 1
-"out vec3 ourColor;\n" // output a color to the fragment shader
+"layout (location = 0) in vec3 position;\n"
 "void main()\n"
 "{\n"
-	"gl_Position = vec4(aPos, 1.0);\n"
-    "ourColor = aColor;\n" // set ourColor to the input color we got from the vertex data
+//...pode ter mais linhas de código aqui!
+"gl_Position = vec4(position.x, position.y, position.z, 1.0);\n"
 "}\0";
 
-//C�difo fonte do Fragment Shader (em GLSL): ainda hardcoded
+//Códifo fonte do Fragment Shader (em GLSL): ainda hardcoded
 const GLchar* fragmentShaderSource = "#version 450\n"
-"out vec4 FragColor;\n"  
-"in vec3 ourColor;\n"
+"uniform vec4 inputColor;\n"
+"out vec4 color;\n"
 "void main()\n"
 "{\n"
-"FragColor = vec4(ourColor, 1.0);\n"
+"color = inputColor;\n"
 "}\n\0";
+
+// //shaders for triangle if 3 colors
+// const GLchar* vertexShaderSource = "#version 450\n"
+// "layout (location = 0) in vec3 aPos;\n"   // the position variable has attribute position 0
+// "layout (location = 1) in vec3 aColor;\n" // the color variable has attribute position 1
+// "out vec3 ourColor;\n" // output a color to the fragment shader
+// "void main()\n"
+// "{\n"
+// 	"gl_Position = vec4(aPos, 1.0);\n"
+//     "ourColor = aColor;\n" // set ourColor to the input color we got from the vertex data
+// "}\0";
+
+// //C�difo fonte do Fragment Shader (em GLSL): ainda hardcoded
+// const GLchar* fragmentShaderSource = "#version 450\n"
+// "out vec4 FragColor;\n"  
+// "in vec3 ourColor;\n"
+// "void main()\n"
+// "{\n"
+// "FragColor = vec4(ourColor, 1.0);\n"
+// "}\n\0";
 
 int spiralsize;
 
@@ -146,8 +147,8 @@ int main()
 	// Enviando a cor desejada (vec4) para o fragment shader
 	// Utilizamos a vari�veis do tipo uniform em GLSL para armazenar esse tipo de info
 	// que n�o est� nos buffers
-	// GLint colorLoc = glGetUniformLocation(shaderID, "inputColor");
-	// assert(colorLoc > -1);
+	GLint colorLoc = glGetUniformLocation(shaderID, "inputColor");
+	assert(colorLoc > -1);
 	glUseProgram(shaderID);
 	
 	
@@ -162,7 +163,7 @@ int main()
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f); //cor de fundo
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		glLineWidth(10);
+		glLineWidth(2);
 		glPointSize(20);
 
 		// Chamada de desenho - drawcall
@@ -171,9 +172,9 @@ int main()
 		// float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
 		// float redValue = (cos(timeValue) / 2.0f) + 0.5f;
 		// float blueValue = (sin(timeValue) / 2.0f) + 0.5f;
-		//glUniform4f(colorLoc, 1.0f, 0.0f, 0.0f, 1.0f); //enviando cor para variável uniform inputColor
+		glUniform4f(colorLoc, 1.0f, 0.0f, 0.0f, 1.0f); //enviando cor para variável uniform inputColor
 		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		glDrawArrays(GL_LINE_STRIP, 0, spiralsize - 20);
 
 		// // arrays para a casa
 		// glDrawArrays(GL_TRIANGLE_FAN, 0, houseSegments + 2);
@@ -369,29 +370,69 @@ GLfloat *draw_house()
 	return array;
 }
 
-GLfloat *draw_spiral(GLfloat centerX, GLfloat centerY, GLfloat centerZ, GLfloat radius, GLint rotations)
+GLfloat *draw_spiral(GLfloat centerX, GLfloat centerY, GLfloat centerZ, GLfloat radius, GLfloat radiusIncrease,GLint rotations)
 {
-	float epsilon = 0.1f * 2.0f * M_PI;
+	GLint vertices = 200;
+	int totalsize = 100 * rotations * 2;
+	GLfloat angle = 2.0f * M_PI;
 
-	int size = ((rotations * 2.0f * M_PI)/epsilon)*3 + 1;
-	GLfloat* array = new GLfloat[size];
-	cout << "size " << size << endl;
+	GLfloat verticesX[totalsize];
+	GLfloat verticesY[totalsize];
+	GLfloat verticesZ[totalsize];
+	float smothIncrease = radiusIncrease / (vertices / 2);
+	std::cout << radiusIncrease << endl;
+	std::cout << smothIncrease << endl;
+
 	int index = 0;
-	float theta;
-	for (theta = 0.0f; theta < rotations * 2.0f * M_PI; theta += epsilon)
+	for (int rotation = 0; rotation < rotations * 2; rotation++)
 	{
-		array[index * 3] = sin(theta) * theta;
-		array[(index * 3) + 1] = cos(theta) * theta;
-		array[(index * 3) + 2] = centerZ;
-		index++;
-	}
-	spiralsize = index;
-	cout << "index final " << index << endl;
-	for(int i; i < size; i++){
-		cout << "index " << i << "ponto " << array[i] << endl;
+		radius += radiusIncrease;
+		for (int i = 0; i < vertices / 2; i++)
+		{
+			float increase = smothIncrease * (i + 1);
+			float increaseRadius = (radius + increase);
+			verticesX[index] = centerX + (increaseRadius * cos(index * angle / vertices));
+			verticesY[index] = centerY + (increaseRadius * sin(index * angle / vertices));
+			verticesZ[index] = centerZ;
+			index++;
+		}
 	}
 
-	return array;
+
+	GLfloat* completeArray = new GLfloat[totalsize * 3];
+	
+	for(int i = 0; i < totalsize; i++){
+		completeArray[i * 3] = verticesX[i];
+		completeArray[(i * 3) + 1] = verticesY[i];
+		completeArray[(i * 3) + 2] = verticesZ[i];
+
+		spiralsize += 1;
+	}
+
+	return completeArray;
+
+
+	// float epsilon = 0.1f * 2.0f * M_PI;
+
+	// int size = ((rotations * 2.0f * M_PI)/epsilon)*3 + 1;
+	// GLfloat* array = new GLfloat[size];
+	// cout << "size " << size << endl;
+	// int index = 0;
+	// float theta;
+	// for (theta = 0.0f; theta < rotations * 2.0f * M_PI; theta += epsilon)
+	// {
+	// 	array[index * 3] = sin(theta) * theta;
+	// 	array[(index * 3) + 1] = cos(theta) * theta;
+	// 	array[(index * 3) + 2] = centerZ;
+	// 	index++;
+	// }
+	// spiralsize = index;
+	// cout << "index final " << index << endl;
+	// for(int i; i < size; i++){
+	// 	cout << "index " << i << "ponto " << array[i] << endl;
+	// }
+
+	// return array;
 }
 
 // Fun��o de callback de teclado - s� pode ter uma inst�ncia (deve ser est�tica se
@@ -487,19 +528,20 @@ int setupGeometry()
 	// };
 
 	// // triangles with 3 colors
-	GLfloat vertices[] = {
-		//triangulo				cor
-		-0.5f, -0.5f, 0.0f,		1.0f, 0.0f, 0.0f,
-		0.0f, 0.5f, 0.0f,		0.0f, 1.0f, 0.0f,
-		0.5f, -0.5f, 0.0f,		0.0f, 0.0f, 1.0f,
-	};
-	int sizes = sizeof(vertices);
+	// GLfloat vertices[] = {
+	// 	//triangulo				cor
+	// 	-0.5f, -0.5f, 0.0f,		1.0f, 0.0f, 0.0f,
+	// 	0.0f, 0.5f, 0.0f,		0.0f, 1.0f, 0.0f,
+	// 	0.5f, -0.5f, 0.0f,		0.0f, 0.0f, 1.0f,
+	// };
+	// int sizes = sizeof(vertices);
 
 	int segments = 5;
 	// GLfloat* vertices = draw_circle(0.0f, 0.0f, 0.0f, 0.5f, segments);
 	// int sizes = (segments + 2) * 3 * sizeof(GLfloat);
-	// GLfloat* vertices = draw_spiral(0.0f, 0.0f, 0.0f, 0.5f, segments);
-	// int sizes = spiralsize * 3 * sizeof(GLfloat);
+	GLfloat* vertices = draw_spiral(0.0f, 0.0f, 0.0f, 0.05f, 0.05f, segments);
+	int sizes = spiralsize * 3 * sizeof(GLfloat);
+
 	//GLfloat* vertices = draw_house();
 	//int sizes = totalsize * sizeof(GLfloat);
 
@@ -531,8 +573,8 @@ int setupGeometry()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (void *)0);
 	glEnableVertexAttribArray(0);
 	// color attribute
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (void *)(3 * sizeof(GLfloat)));
-	glEnableVertexAttribArray(1);
+	// glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (void *)(3 * sizeof(GLfloat)));
+	// glEnableVertexAttribArray(1);
 
 	// Observe que isso é permitido, a chamada para glVertexAttribPointer registrou o VBO como o objeto de buffer de vértice 
 	// atualmente vinculado - para que depois possamos desvincular com segurança

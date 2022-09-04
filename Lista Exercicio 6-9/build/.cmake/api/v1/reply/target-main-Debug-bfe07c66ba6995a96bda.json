@@ -74,19 +74,19 @@
 			[
 				{
 					"backtrace" : 3,
-					"path" : "/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Linux/dependencies/GLFW3/include"
+					"path" : "/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Lista Exercicio 6-9/dependencies/GLFW3/include"
 				},
 				{
 					"backtrace" : 4,
-					"path" : "/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Linux/dependencies/GLFW3/lib"
+					"path" : "/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Lista Exercicio 6-9/dependencies/GLFW3/lib"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Linux/dependencies/GLFW3"
+					"path" : "/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Lista Exercicio 6-9/dependencies/GLFW3"
 				},
 				{
 					"backtrace" : 6,
-					"path" : "/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Linux/dependencies/GLAD/include"
+					"path" : "/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Lista Exercicio 6-9/dependencies/GLAD/include"
 				}
 			],
 			"language" : "CXX",
@@ -106,19 +106,19 @@
 			[
 				{
 					"backtrace" : 3,
-					"path" : "/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Linux/dependencies/GLFW3/include"
+					"path" : "/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Lista Exercicio 6-9/dependencies/GLFW3/include"
 				},
 				{
 					"backtrace" : 4,
-					"path" : "/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Linux/dependencies/GLFW3/lib"
+					"path" : "/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Lista Exercicio 6-9/dependencies/GLFW3/lib"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Linux/dependencies/GLFW3"
+					"path" : "/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Lista Exercicio 6-9/dependencies/GLFW3"
 				},
 				{
 					"backtrace" : 6,
-					"path" : "/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Linux/dependencies/GLAD/include"
+					"path" : "/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Lista Exercicio 6-9/dependencies/GLAD/include"
 				}
 			],
 			"language" : "C",

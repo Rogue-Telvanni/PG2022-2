@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Linux/build"
+			"value" : "/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Lista Exercicio 6-9/build"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -139,10 +139,10 @@
 				},
 				{
 					"name" : "HELPSTRING",
-					"value" : "No help, variable specified on the command line."
+					"value" : "CXX compiler"
 				}
 			],
-			"type" : "FILEPATH",
+			"type" : "STRING",
 			"value" : "/usr/bin/g++"
 		},
 		{
@@ -267,10 +267,10 @@
 				},
 				{
 					"name" : "HELPSTRING",
-					"value" : "No help, variable specified on the command line."
+					"value" : "C compiler"
 				}
 			],
-			"type" : "FILEPATH",
+			"type" : "STRING",
 			"value" : "/usr/bin/gcc"
 		},
 		{
@@ -587,7 +587,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Linux"
+			"value" : "/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Lista Exercicio 6-9"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -1315,7 +1315,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Linux/build"
+			"value" : "/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Lista Exercicio 6-9/build"
 		},
 		{
 			"name" : "main_IS_TOP_LEVEL",
@@ -1339,7 +1339,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Linux"
+			"value" : "/home/joao/college/processamentoGrafico/Atividade 1/PG2022-2/Lista Exercicio 6-9"
 		}
 	],
 	"kind" : "cache",
