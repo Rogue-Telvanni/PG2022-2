@@ -410,29 +410,6 @@ GLfloat *draw_spiral(GLfloat centerX, GLfloat centerY, GLfloat centerZ, GLfloat 
 	}
 
 	return completeArray;
-
-
-	// float epsilon = 0.1f * 2.0f * M_PI;
-
-	// int size = ((rotations * 2.0f * M_PI)/epsilon)*3 + 1;
-	// GLfloat* array = new GLfloat[size];
-	// cout << "size " << size << endl;
-	// int index = 0;
-	// float theta;
-	// for (theta = 0.0f; theta < rotations * 2.0f * M_PI; theta += epsilon)
-	// {
-	// 	array[index * 3] = sin(theta) * theta;
-	// 	array[(index * 3) + 1] = cos(theta) * theta;
-	// 	array[(index * 3) + 2] = centerZ;
-	// 	index++;
-	// }
-	// spiralsize = index;
-	// cout << "index final " << index << endl;
-	// for(int i; i < size; i++){
-	// 	cout << "index " << i << "ponto " << array[i] << endl;
-	// }
-
-	// return array;
 }
 
 // Fun��o de callback de teclado - s� pode ter uma inst�ncia (deve ser est�tica se
