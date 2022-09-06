@@ -18,6 +18,55 @@ círculo
 Pacman
 ![Screenshot from 2022-08-20 22-14-06](https://user-images.githubusercontent.com/110510237/187807199-de4540e0-b64d-40b7-94b7-ed07a8e8bf74.png)
 
+Atividade 7
+Para a atividade 7 o código utilizado foi o seguinte código para gerar os vertices
+
+GLfloat *draw_spiral(GLfloat centerX, GLfloat centerY, GLfloat centerZ, GLfloat radius, GLfloat radiusIncrease,GLint rotations)
+{
+	GLint vertices = 200;
+	int totalsize = 100 * rotations * 2;
+	GLfloat angle = 2.0f * M_PI;
+
+	GLfloat verticesX[totalsize];
+	GLfloat verticesY[totalsize];
+	GLfloat verticesZ[totalsize];
+	float smothIncrease = radiusIncrease / (vertices / 2);
+	std::cout << radiusIncrease << endl;
+	std::cout << smothIncrease << endl;
+
+	int index = 0;
+	for (int rotation = 0; rotation < rotations * 2; rotation++)
+	{
+		radius += radiusIncrease;
+		for (int i = 0; i < vertices / 2; i++)
+		{
+			float increase = smothIncrease * (i + 1);
+			float increaseRadius = (radius + increase);
+			verticesX[index] = centerX + (increaseRadius * cos(index * angle / vertices));
+			verticesY[index] = centerY + (increaseRadius * sin(index * angle / vertices));
+			verticesZ[index] = centerZ;
+			index++;
+		}
+	}
+
+
+	GLfloat* completeArray = new GLfloat[totalsize * 3];
+	
+	for(int i = 0; i < totalsize; i++){
+		completeArray[i * 3] = verticesX[i];
+		completeArray[(i * 3) + 1] = verticesY[i];
+		completeArray[(i * 3) + 2] = verticesZ[i];
+
+		spiralsize += 1;
+	}
+
+	return completeArray;
+}
+
+tendo como resultado a seguinte spiral usando 5 rotações
+![Screenshot from 2022-09-05 22-36-45](https://user-images.githubusercontent.com/110510237/188531219-9aa1220c-d6e2-4e54-baf7-cf1b3e3367a4.png)
+
+
 Atividade 8
 para a atividade 8 foi feiita uma mudança dos shaders padrões de aula
 ![Screenshot from 2022-08-31 21-32-47](https://user-images.githubusercontent.com/110510237/187809538-af62ee71-142b-43fb-bc10-a6e1a89aaaed.png)
