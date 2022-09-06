@@ -1,6 +1,8 @@
 # ninja log v5
-664	802	1662249213758346562	main	34f13a594bcf10da
-3	663	1662249213620348486	CMakeFiles/main.dir/HelloTriangle/Source.cpp.o	86c4f7961c12c3bc
-1	311	1662241980110172093	CMakeFiles/main.dir/dependencies/GLAD/src/glad.c.o	e6fb586abaa58fa8
-23	747	1662249471567752681	CMakeFiles/main.dir/HelloTriangle/Source.cpp.o	86c4f7961c12c3bc
 747	911	1662249471729750422	main	34f13a594bcf10da
+23	747	1662249471567752681	CMakeFiles/main.dir/HelloTriangle/Source.cpp.o	86c4f7961c12c3bc
+1	311	1662241980110172093	CMakeFiles/main.dir/dependencies/GLAD/src/glad.c.o	e6fb586abaa58fa8
+1	641	1662425929670908749	CMakeFiles/main.dir/HelloTriangle/Source.cpp.o	86c4f7961c12c3bc
+641	794	1662425929821901195	main	34f13a594bcf10da
+4	880	1662428146080446102	CMakeFiles/main.dir/HelloTriangle/Source.cpp.o	86c4f7961c12c3bc
+880	1115	1662428146313446393	main	34f13a594bcf10da

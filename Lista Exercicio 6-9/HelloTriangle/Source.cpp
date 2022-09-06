@@ -174,7 +174,7 @@ int main()
 		// float blueValue = (sin(timeValue) / 2.0f) + 0.5f;
 		glUniform4f(colorLoc, 1.0f, 0.0f, 0.0f, 1.0f); //enviando cor para variável uniform inputColor
 		glBindVertexArray(VAO);
-		glDrawArrays(GL_LINE_STRIP, 0, spiralsize - 20);
+		glDrawArrays(GL_LINE_STRIP, 0, spiralsize);
 
 		// // arrays para a casa
 		// glDrawArrays(GL_TRIANGLE_FAN, 0, houseSegments + 2);
@@ -570,7 +570,7 @@ int setupGeometry()
 	// Tamanho em bytes 
 	// Deslocamento a partir do byte zero 
 	// position attribute
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (void *)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void *)0);
 	glEnableVertexAttribArray(0);
 	// color attribute
 	// glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (void *)(3 * sizeof(GLfloat)));
