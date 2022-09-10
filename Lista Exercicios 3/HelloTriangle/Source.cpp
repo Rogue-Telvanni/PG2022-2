@@ -96,7 +96,7 @@ int main()
 	// Criação da matriz de projeção paralela ortográfica
 	glm::mat4 projection = glm::mat4(1); //matriz identidade
 	//projection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, -1.0f, 1.0f);
-	projection = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f, -1.0f, 1.0f);
+	projection = glm::ortho(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f);
 
 	glUseProgram(shader.ID);
 	
@@ -114,44 +114,24 @@ int main()
 		glLineWidth(10);
 		glPointSize(20);
 
-		// primeira imagem
-		glm::mat4 model = glm::mat4(1); //matriz de modelo: transformações na geometria		
-		model = glm::translate(model, glm::vec3(400.0f, 300.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(270.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-		model = glm::scale(model, glm::vec3(350.0f, 350.f, 1.0f));
-		shader.setMat4("model", glm::value_ptr(model));
+		float cory = 0.1f;
+		for (float y = 0.0f; y <= 600.0f; y += 100.0f)
+		{
+			float corx = 0.0f + cory;
+			for (float x = 0.0f; x <= 800.0f; x += 100.0f)
+			{
+				glm::mat4 model = glm::mat4(1); // matriz de modelo: transformações na geometria
+				model = glm::translate(model, glm::vec3(x, y, 0.0f));
+				model = glm::scale(model, glm::vec3(100.0f, 100.f, 1.0f));
+				shader.setMat4("model", glm::value_ptr(model));
+				corx += 0.08f;
+				shader.setVec4("inputColor", cos(corx), cory, 0.3f, 1.0f); // enviando cor para variável uniform inputColor
+				glBindVertexArray(VAO);
+				glDrawArrays(GL_TRIANGLES, 0, 6);
+			}
+			cory += 0.1f;
+		}
 
-		// Chamada de desenho - drawcall
-		// Poligono Preenchido - GL_TRIANGLES
-		shader.setVec4("inputColor",1.0f, 1.0f, 0.0f, 1.0f); //enviando cor para variável uniform inputColor
-		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
-
-		// segunda imagem
-		model = glm::mat4(1); //matriz de modelo: transformações na geometria		
-		model = glm::translate(model, glm::vec3(400.0f, 300.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-		model = glm::scale(model, glm::vec3(350.0f, 350.f, 1.0f));
-		shader.setMat4("model", glm::value_ptr(model));
-
-		// Chamada de desenho - drawcall
-		// Poligono Preenchido - GL_TRIANGLES
-		shader.setVec4("inputColor",1.0f, 0.0f, 1.0f, 1.0f); //enviando cor para variável uniform inputColor
-		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
-
-		// // Chamada de desenho - drawcall
-		// // CONTORNO - GL_LINE_LOOP
-		// // PONTOS - GL_POINTS
-		// shader.setVec4("inputColor",1.0f, 0.0f, 1.0f, 1.0f); //enviando cor para variável uniform inputColor
-		// glDrawArrays(GL_LINE_LOOP, 0, 3);
-
-		model = glm::mat4(1);
-		model = glm::translate(model, glm::vec3(400.0f, 300.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(350.0f, 350.f, 1.0f));
-		shader.setMat4("model", glm::value_ptr(model));
-		drawCircle(&shader, glm::vec3(400.0, 300.0, 0.0));
-		
 		glBindVertexArray(0);
 
 		// Troca os buffers da tela
@@ -167,14 +147,13 @@ int main()
 // Função de callback de teclado - só pode ter uma instância (deve ser estática se
 // estiver dentro de uma classe) - É chamada sempre que uma tecla for pressionada
 // ou solta via GLFW
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
+void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode)
 {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
 }
 
-
-// Esta função está bastante harcoded - objetivo é criar os buffers que armazenam a 
+// Esta função está bastante harcoded - objetivo é criar os buffers que armazenam a
 // geometria de um triângulo
 // Apenas atributo coordenada nos vértices
 // 1 VBO com as coordenadas, VAO com apenas 1 ponteiro para atributo
@@ -186,10 +165,14 @@ int setupGeometry()
 	// Cada atributo do vértice (coordenada, cores, coordenadas de textura, normal, etc)
 	// Pode ser arazenado em um VBO único ou em VBOs separados
 	GLfloat vertices[] = {
-		-0.5 , -0.5, 0.0,
-		 0.5,  -0.5, 0.0,
-		 0.0,  0.5 , 0.0,
-		 //outro triangulo vai aqui
+		// first triangle
+		1.0f, 0.0f, 0.0f,  // top right
+		1.0f, -1.0f, 0.0f, // bottom right
+		0.0f, 0.0f, 0.0f,  // top left
+						   // second triangle
+		1.0f, -1.0f, 0.0f, // bottom right
+		0.0f, -1.0f, 0.0f, // bottom left
+		0.0f, 0.0f, 0.0f   // top left
 	};
 
 	GLuint VBO, VAO;
