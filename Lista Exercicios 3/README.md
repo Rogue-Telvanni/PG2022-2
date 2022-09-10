@@ -168,3 +168,89 @@ imagem resultante
 ![Screenshot from 2022-09-10 15-36-22](https://user-images.githubusercontent.com/110510237/189497247-596e1af9-6ffc-454b-ab73-2c97c1d02501.png)
 
 
+Exercicio 3 
+
+código utilizado para controle das teclas precionadas (a variavel rotation é uma variavel da classe de tipo float)
+
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
+{
+	if (action == GLFW_PRESS)
+	{
+		switch (key)
+		{
+			case GLFW_KEY_ESCAPE:
+				glfwSetWindowShouldClose(window, GL_TRUE);
+				break;
+			case GLFW_KEY_W:
+				rotation = 0.0f;
+				break;
+			case GLFW_KEY_A:
+				rotation = 270.0f;
+				break;
+			case GLFW_KEY_D:
+				rotation = 90.0f;
+				break;
+			case GLFW_KEY_S:
+				rotation = 180.0f;
+				break;
+			case GLFW_KEY_UP:
+				rotation = 0.0f;
+				break;
+			case GLFW_KEY_LEFT:
+				rotation = 270.0f;
+				break;
+			case GLFW_KEY_RIGHT:
+				rotation = 90.0f;
+				break;
+			case GLFW_KEY_DOWN:
+				rotation = 180.0f;
+				break;
+			default:
+				break;
+		}
+	}
+}
+
+código utilizado para desenhar o triangulo
+
+
+	while (!glfwWindowShouldClose(window))
+	{
+		// Checa se houveram eventos de input (key pressed, mouse moved etc.) e chama as funções de callback correspondentes
+		glfwPollEvents();
+
+		// Limpa o buffer de cor
+		glClearColor(0.8f, 0.8f, 0.8f, 1.0f); //cor de fundo
+		glClear(GL_COLOR_BUFFER_BIT);
+
+		glLineWidth(10);
+		glPointSize(20);
+
+		// primeira imagem
+		glm::mat4 model = glm::mat4(1); //matriz de modelo: transformações na geometria		
+		model = glm::translate(model, glm::vec3(400.0f, 300.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::scale(model, glm::vec3(300.0f, 300.f, 1.0f));
+		shader.setMat4("model", glm::value_ptr(model));
+
+		// Chamada de desenho - drawcall
+		// Poligono Preenchido - GL_TRIANGLES
+		shader.setVec4("inputColor",1.0f, 1.0f, 0.0f, 1.0f); //enviando cor para variável uniform inputColor
+		glBindVertexArray(VAO);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+		
+		glBindVertexArray(0);
+
+		// Troca os buffers da tela
+		glfwSwapBuffers(window);
+	}
+	
+	
+Imagens geradas 
+
+![Screenshot from 2022-09-10 15-59-28](https://user-images.githubusercontent.com/110510237/189498573-7bf8550d-fd43-4629-9256-3121324bcc25.png)
+![Screenshot from 2022-09-10 15-59-32](https://user-images.githubusercontent.com/110510237/189498579-0f8c70ed-a886-4c9b-b849-ea03a930b1ca.png)
+![Screenshot from 2022-0![Screenshot from 2022-09-10 15-59-37](https://user-images.githubusercontent.com/110510237/189498591-ff250509-bd59-4490-b10c-0a848a5b133b.png)
+![Screenshot from 2022-09-10 15-59-37](https://user-images.githubusercontent.com/110510237/189498602-622ec6ad-fdb0-4340-83b4-685ab45831d0.png)
+
+
