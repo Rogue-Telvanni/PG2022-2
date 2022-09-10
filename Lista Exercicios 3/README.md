@@ -1,3 +1,5 @@
+Observação o desafio 3 foi feito um video para mostrar a execução
+
 Exercicio 1 
 código usado para desenhar a geometria
 
