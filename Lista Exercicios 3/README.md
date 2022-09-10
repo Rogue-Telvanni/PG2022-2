@@ -250,7 +250,7 @@ Imagens geradas
 
 ![Screenshot from 2022-09-10 15-59-28](https://user-images.githubusercontent.com/110510237/189498573-7bf8550d-fd43-4629-9256-3121324bcc25.png)
 ![Screenshot from 2022-09-10 15-59-32](https://user-images.githubusercontent.com/110510237/189498579-0f8c70ed-a886-4c9b-b849-ea03a930b1ca.png)
-![Screenshot from 2022-0![Screenshot from 2022-09-10 15-59-37](https://user-images.githubusercontent.com/110510237/189498591-ff250509-bd59-4490-b10c-0a848a5b133b.png)
+![Screenshot from 2022-09-10 15-59-37](https://user-images.githubusercontent.com/110510237/189498591-ff250509-bd59-4490-b10c-0a848a5b133b.png)
 ![Screenshot from 2022-09-10 15-59-37](https://user-images.githubusercontent.com/110510237/189498602-622ec6ad-fdb0-4340-83b4-685ab45831d0.png)
 
 
