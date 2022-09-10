@@ -1,169 +1,102 @@
-Lista de exercicio 1 referente as atividades 6,7,8,9 e 10
+Exercicio 1 
+código usado para desenhar a geometria
 
-Atividade 6 
-para atividade 6 foi utilizado o seguinte metodo, para a criação de de um pentágono pasta utilizar um segmento de tamanho 5 e para um octágono
-o tamanho 8 e para um círculo um valor superior a 200 é o ideal para um formato redondo
+while (!glfwWindowShouldClose(window))
+	{
+		// Checa se houveram eventos de input (key pressed, mouse moved etc.) e chama as funções de callback correspondentes
+		glfwPollEvents();
 
-![Screenshot from 2022-08-31 21-16-55](https://user-images.githubusercontent.com/110510237/187806674-52b30594-4305-4f45-8b57-377aadd5c688.png)
+		// Limpa o buffer de cor
+		glClearColor(0.8f, 0.8f, 0.8f, 1.0f); //cor de fundo
+		glClear(GL_COLOR_BUFFER_BIT);
 
-pentágono
-![Screenshot from 2022-08-20 21-46-13](https://user-images.githubusercontent.com/110510237/187807112-38a7906a-416c-4574-ac36-3461e2e71e4b.png)
+		glLineWidth(10);
+		glPointSize(20);
 
-octágono
-![Screenshot from 2022-08-20 22-11-23](https://user-images.githubusercontent.com/110510237/187807138-10e8d4de-8866-4765-a4b6-752b98f92378.png)
+		// primeira imagem
+		glm::mat4 model = glm::mat4(1); //matriz de modelo: transformações na geometria		
+		model = glm::translate(model, glm::vec3(400.0f, 300.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(270.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::scale(model, glm::vec3(350.0f, 350.f, 1.0f));
+		shader.setMat4("model", glm::value_ptr(model));
 
-círculo
-![Screenshot from 2022-08-20 21-40-21](https://user-images.githubusercontent.com/110510237/187807180-078b0157-b585-4029-8ada-daed2a4732a5.png)
+		shader.setVec4("inputColor",1.0f, 1.0f, 0.0f, 1.0f); //enviando cor para variável uniform inputColor
+		glBindVertexArray(VAO);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
 
-Pacman
-![Screenshot from 2022-08-20 22-14-06](https://user-images.githubusercontent.com/110510237/187807199-de4540e0-b64d-40b7-94b7-ed07a8e8bf74.png)
+		// segunda imagem
+		model = glm::mat4(1); //matriz de modelo: transformações na geometria		
+		model = glm::translate(model, glm::vec3(400.0f, 300.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::scale(model, glm::vec3(350.0f, 350.f, 1.0f));
+		shader.setMat4("model", glm::value_ptr(model));
 
-Atividade 8
-para a atividade 8 foi feiita uma mudança dos shaders padrões de aula
-![Screenshot from 2022-08-31 21-32-47](https://user-images.githubusercontent.com/110510237/187809538-af62ee71-142b-43fb-bc10-a6e1a89aaaed.png)
+		// Chamada de desenho - drawcall
+		// Poligono Preenchido - GL_TRIANGLES
+		shader.setVec4("inputColor",1.0f, 0.0f, 1.0f, 1.0f); //enviando cor para variável uniform inputColor
+		glBindVertexArray(VAO);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
 
-e o codigo para a criação do triangulo é o seguinte
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(400.0f, 300.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(350.0f, 350.f, 1.0f));
+		shader.setMat4("model", glm::value_ptr(model));
+		drawCircle(&shader, glm::vec3(400.0, 300.0, 0.0));
+		
+		glBindVertexArray(0);
 
-vertices
-![Screenshot from 2022-08-31 21-35-04](https://user-images.githubusercontent.com/110510237/187809912-7658df2c-3067-47a3-94de-00130cd122bf.png)
-
-buffers e vertex binding
-![Screenshot from 2022-08-31 21-35-46](https://user-images.githubusercontent.com/110510237/187809980-d3542c18-1261-4440-98a1-f6fcd54960fe.png)
-
-drawCall
-![Screenshot from 2022-08-31 21-42-19](https://user-images.githubusercontent.com/110510237/187810007-c4e0cfc3-6edd-4a37-bd22-b769feba969e.png)
-
-resultado do triangulo
-![Screenshot from 2022-08-28 17-50-43](https://user-images.githubusercontent.com/110510237/187810154-a648c910-3afa-463f-a6dc-5c333127deab.png)
-
-Para a Atividade 9 foram Utilizados os mesmos shaders para o exercicio 5
-e para a criação dos vertices e a chamada para desenhar a imagem
-
-GLfloat *draw_house()
+		// Troca os buffers da tela
+		glfwSwapBuffers(window);
+	}
+Desenho do circulo
+	void drawCircle(Shader* shader, glm::vec3 coords, glm::vec3 color)
 {
-	GLfloat * array = new GLfloat[totalsize];
+	GLint segments = 200;
+	GLint vertices = segments + 2;
 	GLfloat angle = 2.0f * M_PI;
 
-	GLfloat centerX = -0.75f;
-	GLfloat centerY = 0.75f;
-	GLfloat centerZ = 0.0f;
-	GLfloat radius = 0.25f;
-
-	GLfloat verticesX[houseSegments + 2];
-	GLfloat verticesY[houseSegments + 2];
-	GLfloat verticesZ[houseSegments + 2];
+	GLfloat verticesX[vertices];
+	GLfloat verticesY[vertices];
+	GLfloat verticesZ[vertices];
 
 	// circle center
-	verticesX[0] = centerX;
-	verticesY[0] = centerY;
-	verticesZ[0] = centerZ;
-	
-	int index;
-	for(index = 1; index < houseSegments + 2; index++){
+	verticesX[0] = 0;
+	verticesY[0] = 0.5;
+	verticesZ[0] = 0;
+	GLfloat radius = 0.35f;
+
+	for(int index = 1; index < vertices; index++){
 		
-		verticesX[index] = centerX + (radius * cos(index * angle / houseSegments));
-		verticesY[index] = centerY + (radius * sin(index * angle / houseSegments));
-		verticesZ[index] = centerZ;
+		verticesX[index] = 0 + (radius * cos(index * angle / segments));
+		verticesY[index] = 0.5f + (radius * sin(index * angle / segments));
+		verticesZ[index] = 0;
 	}
 
-	for(int i = 0; i < houseSegments + 2; i++){
-		array[i * 3] = verticesX[i];
-		array[(i * 3) + 1] = verticesY[i];
-		array[(i * 3) + 2] = verticesZ[i];
-		cout << "I" << (i * 3) + 2 << endl;
-	}
-
-	cout << "index" << index << endl;
-	index = index * 3;
-	cout << "index" << index << endl;
-
-	// desenha o telhado
-	//ponto 1
-	array[index++] = 0.0f;
-	array[index++] = 0.0f;
-	array[index++] = 0.0f;
-	//ponto 2
-	array[index++] = 0.25f;
-	array[index++] = 0.5f;
-	array[index++] = 0.0f;
-	//ponto 3
-	array[index++] = 0.5f;
-	array[index++] = 0.0f;
-	array[index++] = 0.0f;
-
-	// desenho casa
-
-	//ponto 1
-	array[index++] = 0.0f;
-	array[index++] = 0.0f;
-	array[index++] = 0.0f;
-	//ponto 2
-	array[index++] = 0.5f;
-	array[index++] = 0.0f;
-	array[index++] = 0.0f;
-	//ponto 3
-	array[index++] = 0.0f;
-	array[index++] = -0.75f;
-	array[index++] = 0.0f;
+	GLint size = vertices * 3;
+	GLfloat completeArray [size];
 	
-	//ponto 4
-	array[index++] = 0.5f;
-	array[index++] = -0.75f;
-	array[index++] = 0.0f;
-	//ponto 5
-	array[index++] = 0.0f;
-	array[index++] = -0.75f;
-	array[index++] = 0.0f;
-	//ponto 6
-	array[index++] = 0.5f;
-	array[index++] = 0.0f;
-	array[index++] = 0.0f;
+	for(int i = 0; i < vertices; i++){
+		completeArray[i * 3] = verticesX[i];
+		completeArray[(i * 3) + 1] = verticesY[i];
+		completeArray[(i * 3) + 2] = verticesZ[i];
+	}
 
-	// desenho porta
-	//ponto 1
-	array[index++] = 0.125f;
-	array[index++] = -0.5f;
-	array[index++] = 0.0f;
-	//ponto 2
-	array[index++] = 0.25f;
-	array[index++] = -0.5f;
-	array[index++] = 0.0f;
-	//ponto 3
-	array[index++] = 0.125f;
-	array[index++] = -0.75f;
-	array[index++] = 0.0f;
-	//ponto 4
-	array[index++] = 0.25f;
-	array[index++] = -0.5f;
-	array[index++] = 0.0f;
-	//ponto 5
-	array[index++] = 0.125f;
-	array[index++] = -0.75f;
-	array[index++] = 0.0f;
-	//ponto 6
-	array[index++] = 0.25f;
-	array[index++] = -0.75f;
-	array[index++] = 0.0f;
+	GLuint VBO, VAO;
+	glGenBuffers(1, &VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(completeArray), completeArray, GL_STATIC_DRAW);
+	glGenVertexArrays(1, &VAO);
+	glBindVertexArray(VAO);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+	glEnableVertexAttribArray(0);
 
-	//piso
-	//ponto 1
-	array[index++] = -1.00f;
-	array[index++] = -0.75f;
-	array[index++] = 0.0f;
-	//ponto 2
-	array[index++] = 1.0f;
-	array[index++] = -0.75f;
-	array[index] = 0.0f;
+	shader->setVec4("inputColor", color.r, color.g, color.b, 1.0);
+	glDrawArrays(GL_TRIANGLE_FAN, 0, vertices);
 
-	// cout << index << endl;
-	// cout << totalsize << endl;
-
-	return array;
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
 }
 
-chamada para desenhar
-![Screenshot from 2022-08-31 22-01-15](https://user-images.githubusercontent.com/110510237/187810665-ad728bd4-2a97-4820-bac5-0c01add84249.png) 
-
-imagem
-![Screenshot from 2022-08-28 15-10-25](https://user-images.githubusercontent.com/110510237/187810702-dadfa278-c7c9-4fce-ad6c-718775195d4d.png)
+imagem resultante
+![Screenshot from 2022-09-10 13-42-30](https://user-images.githubusercontent.com/110510237/189493388-e22d117c-2a54-4c66-b53d-347bedab5a2c.png)
 
