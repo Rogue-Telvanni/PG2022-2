@@ -1,7 +1,9 @@
 Exercicio 1 
 código usado para desenhar a geometria
 
-while (!glfwWindowShouldClose(window))
+
+
+	while (!glfwWindowShouldClose(window))
 	{
 		// Checa se houveram eventos de input (key pressed, mouse moved etc.) e chama as funções de callback correspondentes
 		glfwPollEvents();
@@ -48,8 +50,12 @@ while (!glfwWindowShouldClose(window))
 		// Troca os buffers da tela
 		glfwSwapBuffers(window);
 	}
+	
+	
 Desenho do circulo
-	void drawCircle(Shader* shader, glm::vec3 coords, glm::vec3 color)
+
+
+void drawCircle(Shader* shader, glm::vec3 coords, glm::vec3 color)
 {
 	GLint segments = 200;
 	GLint vertices = segments + 2;
@@ -98,5 +104,53 @@ Desenho do circulo
 }
 
 imagem resultante
+
+
 ![Screenshot from 2022-09-10 13-42-30](https://user-images.githubusercontent.com/110510237/189493388-e22d117c-2a54-4c66-b53d-347bedab5a2c.png)
+
+Código para o exercicio 2 
+
+
+while (!glfwWindowShouldClose(window))
+	{
+		// Checa se houveram eventos de input (key pressed, mouse moved etc.) e chama as funções de callback correspondentes
+		glfwPollEvents();
+
+		// Limpa o buffer de cor
+		glClearColor(0.8f, 0.8f, 0.8f, 1.0f); //cor de fundo
+		glClear(GL_COLOR_BUFFER_BIT);
+
+		glLineWidth(10);
+		glPointSize(20);
+
+		float cory = 0.1f;
+		for (float y = 0.0f; y <= 600.0f; y += 100.0f)
+		{
+			float corx = 0.0f + cory;
+			for (float x = 0.0f; x <= 800.0f; x += 100.0f)
+			{
+				glm::mat4 model = glm::mat4(1); // matriz de modelo: transformações na geometria
+				model = glm::translate(model, glm::vec3(x, y, 0.0f));
+				model = glm::scale(model, glm::vec3(100.0f, 100.f, 1.0f));
+				shader.setMat4("model", glm::value_ptr(model));
+				corx += 0.08f;
+				shader.setVec4("inputColor", cos(corx), cory, 0.3f, 1.0f); // enviando cor para variável uniform inputColor
+				glBindVertexArray(VAO);
+				glDrawArrays(GL_TRIANGLES, 0, 6);
+			}
+			cory += 0.1f;
+		}
+
+		glBindVertexArray(0);
+
+		// Troca os buffers da tela
+		glfwSwapBuffers(window);
+	}
+	
+	
+imagem resultante
+
+
+![Screenshot from 2022-09-10 15-36-22](https://user-images.githubusercontent.com/110510237/189497247-596e1af9-6ffc-454b-ab73-2c97c1d02501.png)
+
 
