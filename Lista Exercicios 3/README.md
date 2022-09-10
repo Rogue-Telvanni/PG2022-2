@@ -254,3 +254,47 @@ Imagens geradas
 ![Screenshot from 2022-09-10 15-59-37](https://user-images.githubusercontent.com/110510237/189498602-622ec6ad-fdb0-4340-83b4-685ab45831d0.png)
 
 
+Desafio lista 3
+
+Código do desafio
+
+
+	float position_x = 0.0f;
+	float increase = 10.0f;
+	// Loop da aplicação - "game loop"
+	while (!glfwWindowShouldClose(window))
+	{
+		// Checa se houveram eventos de input (key pressed, mouse moved etc.) e chama as funções de callback correspondentes
+		glfwPollEvents();
+
+		// Limpa o buffer de cor
+		glClearColor(0.8f, 0.8f, 0.8f, 1.0f); //cor de fundo
+		glClear(GL_COLOR_BUFFER_BIT);
+
+		glLineWidth(10);
+		glPointSize(20);
+
+		// primeira imagem
+		glm::mat4 model = glm::mat4(1); //matriz de modelo: transformações na geometria		
+		model = glm::translate(model, glm::vec3(position_x, 300.0f, 0.0f));
+		//model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::scale(model, glm::vec3(300.0f, 300.f, 1.0f));
+		shader.setMat4("model", glm::value_ptr(model));
+
+		// Chamada de desenho - drawcall
+		// Poligono Preenchido - GL_TRIANGLES
+		shader.setVec4("inputColor",0.42f, 0.24f, 0.52f, 1.0f); //enviando cor para variável uniform inputColor
+		glBindVertexArray(VAO);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+		
+		glBindVertexArray(0);
+		//650 o tamanho da projeção 800 - 150 o tamanho de metade do triangulo
+		position_x += increase;
+		if(position_x >= 650.0f)
+			increase = -10.0f;
+		//150  o tamanho de metade do triangulo já que o o ponto 0 esta o centro do triangulo antes da trasnformação
+		else if(position_x <= 150.0f)
+			increase = 10.0f;
+		// Troca os buffers da tela
+		glfwSwapBuffers(window);
+	}
