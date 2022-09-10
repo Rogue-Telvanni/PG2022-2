@@ -1,0 +1,3 @@
+/home/joao/college/processamentoGrafico/Lista Exercicios 3/build/CMakeFiles/main.dir
+/home/joao/college/processamentoGrafico/Lista Exercicios 3/build/CMakeFiles/edit_cache.dir
+/home/joao/college/processamentoGrafico/Lista Exercicios 3/build/CMakeFiles/rebuild_cache.dir

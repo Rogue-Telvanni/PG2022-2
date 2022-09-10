@@ -1,0 +1,17 @@
+[
+{
+  "directory": "/home/joao/college/processamentoGrafico/Lista Exercicios 3/build",
+  "command": "/usr/bin/g++ -I\"/home/joao/college/processamentoGrafico/Lista Exercicios 3/dependencies/GLFW3/include\" -I\"/home/joao/college/processamentoGrafico/Lista Exercicios 3/dependencies/GLFW3/lib\" -I\"/home/joao/college/processamentoGrafico/Lista Exercicios 3/dependencies/GLFW3\" -I\"/home/joao/college/processamentoGrafico/Lista Exercicios 3/dependencies/GLAD/include\" -I\"/home/joao/college/processamentoGrafico/Lista Exercicios 3/dependencies/glm\" -g -o CMakeFiles/main.dir/HelloTriangle/Source.cpp.o -c \"/home/joao/college/processamentoGrafico/Lista Exercicios 3/HelloTriangle/Source.cpp\"",
+  "file": "/home/joao/college/processamentoGrafico/Lista Exercicios 3/HelloTriangle/Source.cpp"
+},
+{
+  "directory": "/home/joao/college/processamentoGrafico/Lista Exercicios 3/build",
+  "command": "/usr/bin/gcc -I\"/home/joao/college/processamentoGrafico/Lista Exercicios 3/dependencies/GLFW3/include\" -I\"/home/joao/college/processamentoGrafico/Lista Exercicios 3/dependencies/GLFW3/lib\" -I\"/home/joao/college/processamentoGrafico/Lista Exercicios 3/dependencies/GLFW3\" -I\"/home/joao/college/processamentoGrafico/Lista Exercicios 3/dependencies/GLAD/include\" -I\"/home/joao/college/processamentoGrafico/Lista Exercicios 3/dependencies/glm\" -g -o CMakeFiles/main.dir/dependencies/GLAD/src/glad.c.o -c \"/home/joao/college/processamentoGrafico/Lista Exercicios 3/dependencies/GLAD/src/glad.c\"",
+  "file": "/home/joao/college/processamentoGrafico/Lista Exercicios 3/dependencies/GLAD/src/glad.c"
+},
+{
+  "directory": "/home/joao/college/processamentoGrafico/Lista Exercicios 3/build",
+  "command": "/usr/bin/g++ -I\"/home/joao/college/processamentoGrafico/Lista Exercicios 3/dependencies/GLFW3/include\" -I\"/home/joao/college/processamentoGrafico/Lista Exercicios 3/dependencies/GLFW3/lib\" -I\"/home/joao/college/processamentoGrafico/Lista Exercicios 3/dependencies/GLFW3\" -I\"/home/joao/college/processamentoGrafico/Lista Exercicios 3/dependencies/GLAD/include\" -I\"/home/joao/college/processamentoGrafico/Lista Exercicios 3/dependencies/glm\" -g -o CMakeFiles/main.dir/HelloTriangle/Shader.cpp.o -c \"/home/joao/college/processamentoGrafico/Lista Exercicios 3/HelloTriangle/Shader.cpp\"",
+  "file": "/home/joao/college/processamentoGrafico/Lista Exercicios 3/HelloTriangle/Shader.cpp"
+}
+]
