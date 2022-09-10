@@ -55,6 +55,7 @@ código usado para desenhar a geometria
 Desenho do circulo
 
 
+
 void drawCircle(Shader* shader, glm::vec3 coords, glm::vec3 color)
 {
 	GLint segments = 200;
@@ -111,7 +112,7 @@ imagem resultante
 Código para o exercicio 2 
 
 
-while (!glfwWindowShouldClose(window))
+	while (!glfwWindowShouldClose(window))
 	{
 		// Checa se houveram eventos de input (key pressed, mouse moved etc.) e chama as funções de callback correspondentes
 		glfwPollEvents();
@@ -146,6 +147,19 @@ while (!glfwWindowShouldClose(window))
 		// Troca os buffers da tela
 		glfwSwapBuffers(window);
 	}
+
+vertices usados 
+
+GLfloat vertices[] = {
+		// first triangle
+		1.0f, 0.0f, 0.0f,  // top right
+		1.0f, -1.0f, 0.0f, // bottom right
+		0.0f, 0.0f, 0.0f,  // top left
+						   // second triangle
+		1.0f, -1.0f, 0.0f, // bottom right
+		0.0f, -1.0f, 0.0f, // bottom left
+		0.0f, 0.0f, 0.0f   // top left
+	};
 	
 	
 imagem resultante
