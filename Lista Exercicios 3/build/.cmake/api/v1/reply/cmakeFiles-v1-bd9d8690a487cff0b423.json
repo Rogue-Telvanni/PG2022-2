@@ -21,11 +21,6 @@
 		{
 			"isCMake" : true,
 			"isExternal" : true,
-			"path" : "/usr/share/cmake-3.24/Modules/CMakeNinjaFindMake.cmake"
-		},
-		{
-			"isCMake" : true,
-			"isExternal" : true,
 			"path" : "/usr/share/cmake-3.24/Modules/CMakeSystemSpecificInitialize.cmake"
 		},
 		{
@@ -748,8 +743,8 @@
 	"kind" : "cmakeFiles",
 	"paths" : 
 	{
-		"build" : "/home/joao/college/processamentoGrafico/Trabalho_Grau_A/build",
-		"source" : "/home/joao/college/processamentoGrafico/Trabalho_Grau_A"
+		"build" : "/home/joao/college/processamentoGrafico/Lista Exercicios 3/build",
+		"source" : "/home/joao/college/processamentoGrafico/Lista Exercicios 3"
 	},
 	"version" : 
 	{

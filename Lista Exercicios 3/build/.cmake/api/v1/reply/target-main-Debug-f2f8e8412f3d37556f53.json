@@ -158,7 +158,7 @@
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "../dependencies/GLFW3/lib/libglfw3.a",
+				"fragment" : "\"/home/joao/college/processamentoGrafico/Lista Exercicios 3/dependencies/GLFW3/lib/libglfw3.a\"",
 				"role" : "libraries"
 			},
 			{

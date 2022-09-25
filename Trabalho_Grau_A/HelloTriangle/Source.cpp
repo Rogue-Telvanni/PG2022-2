@@ -37,16 +37,14 @@ using namespace std;
 void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode);
 
 // Prot�tipos das fun��es
-int setupGeometry();
-
-void drawObstacle(Shader *shader, glm::vec3 color = glm::vec3(1.0, 0.0, 1.0), int pointsize = 10);
+int setupBackground();
+void drawSquareObject(Shader *shader, int texture, float v1, float v2,glm::vec3 color = glm::vec3(1.0, 0.0, 1.0));
 GLuint generateTexture(string filePath);
 bool Collide(float characterx, float charactery, float obsx1, float obsx2);
 bool stop;
 
 // Dimens�es da janela (pode ser alterado em tempo de execu��o)
-const GLuint WIDTH = 800, HEIGHT = 600;
-
+const GLfloat WIDTH = 800.0f, HEIGHT = 600.0f;
 // variaveis locais
 float characterHeight;
 float heightIncrease;
@@ -83,6 +81,14 @@ int main()
 	cout << "Renderer: " << renderer << endl;
 	cout << "OpenGL version supported " << version << endl;
 
+	//Habilitar o teste de profundidade
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_ALWAYS);
+
+	//Habilitar a transparência
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	// Definindo as dimens�es da viewport com as mesmas dimens�es da janela da aplica��o
 	int width, height;
 	glfwGetFramebufferSize(window, &width, &height);
@@ -93,20 +99,22 @@ int main()
 	Shader shader("../shaders/hello.vs", "../shaders/hello.fs");
 
 	// Gerando um buffer simples, com a geometria de um tri�ngulo
-	GLuint VAO = setupGeometry();
+	GLuint VAO_Background = setupBackground();
 
 	// Gera��o da textura
-	GLuint texID = generateTexture("../textures/mario.png");
+	GLuint texID = generateTexture("../textures/desert-100.jpg");
+	GLuint texIDRock = generateTexture("../textures/Rock Pile.png");
 
 	// Cria��o da matriz de proje��o paralela ortogr�fica
 	glm::mat4 projection = glm::mat4(1); // matriz identidade
 	// projection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, -1.0f, 1.0f);
-	projection = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f, -1.0f, 1.0f);
+	projection = glm::ortho(0.0f, WIDTH, 0.0f, HEIGHT, -1.0f, 1.0f);
 
 	glUseProgram(shader.ID);
 
 	shader.setMat4("projection", glm::value_ptr(projection));
 
+	glActiveTexture(GL_TEXTURE0);
 	glUniform1i(glGetUniformLocation(shader.ID, "tex_buffer"), 0);
 	float obstacleXtransform = 380.0f;
 	float obstacle2Xtransform = 750.0f;
@@ -129,28 +137,37 @@ int main()
 
 		glLineWidth(10);
 
-		glm::mat4 model = glm::mat4(1); // matriz de modelo: transforma��es na geometria
-		model = glm::translate(model, glm::vec3(70.0f, characterHeight, 0.0f));
-		// model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-		model = glm::scale(model, glm::vec3(100.0f, 100.f, 1.0f));
+		/// IMAGEM DE BACKGROUND
+
+		//Atualizando a matriz de modelo
+		glm::mat4 model = glm::mat4(1); //matriz de modelo: transformações na geometria		
+		model = glm::translate(model, glm::vec3(WIDTH/2, HEIGHT/2, 0.0f));
+		//model = glm::rotate(model, /*glm::radians(45.0f)*/(float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::scale(model, glm::vec3(WIDTH, HEIGHT, 1.0f));
 		//......
+		shader.setMat4("model", glm::value_ptr(model));
+		// Conectando com a textura a ser usada
+		glBindTexture(GL_TEXTURE_2D, texID);
+		//Passando o offset na textura para o shader 
+		shader.setVec2("offset", 0.0, 0.0);
+		// Chamada de desenho - drawcall
+		glBindVertexArray(VAO_Background); //conectando com o buffer de geometria correto
+		glDrawArrays(GL_TRIANGLES, 0, 6);
+
+		// personagem
+		model = glm::mat4(1); // matriz de modelo: transforma��es na geometria
+		model = glm::translate(model, glm::vec3(70.0f, characterHeight, 0.0f));
+		model = glm::scale(model, glm::vec3(100.0f, 100.f, 1.0f));
 		characterHeight += heightIncrease;
 		if (characterHeight == 150.0f)
 			heightIncrease = 0.0f;
 		else if (characterHeight == 354.0f)
 			heightIncrease = -12.0f;
 		shader.setMat4("model", glm::value_ptr(model));
+		drawSquareObject(&shader, texIDRock, 0.0f, 0.0f);
 		float characterx = model[3][0];
 		float charactery = model[3][1];
 
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, texID);
-
-		// Chamada de desenho - drawcall
-		// Poligono Preenchido - GL_TRIANGLES
-		// shader.setVec4("inputColor",1.0f, 1.0f, 0.0f, 1.0f); //enviando cor para vari�vel uniform inputColor
-		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 6);
 
 		// obstacle 1
 		model = glm::mat4(1);
@@ -158,7 +175,8 @@ int main()
 		model = glm::translate(model, glm::vec3(obstacleXtransform, 150.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(100.0f, 100.0f, 1.0f));
 		shader.setMat4("model", glm::value_ptr(model));
-		drawObstacle(&shader);
+		
+		drawSquareObject(&shader, texIDRock, 0.0f, 0.0f);
 		float obs1x = model[3][0];
 
 		if (obstacleXtransform > 20)
@@ -172,7 +190,7 @@ int main()
 		model = glm::translate(model, glm::vec3(obstacle2Xtransform, 150.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(100.0f, 100.0f, 1.0f));
 		shader.setMat4("model", glm::value_ptr(model));
-		drawObstacle(&shader);
+		drawSquareObject(&shader, texIDRock, 0.0f, 0.0f);
 		if (obstacle2Xtransform > 20)
 			obstacle2Xtransform -= obsDecrease;
 		else
@@ -188,7 +206,7 @@ int main()
 		glfwSwapBuffers(window);
 	}
 	// Pede pra OpenGL desalocar os buffers
-	glDeleteVertexArrays(1, &VAO);
+	glDeleteVertexArrays(1, &VAO_Background);
 	// Finaliza a execu��o da GLFW, limpando os recursos alocados por ela
 	glfwTerminate();
 	return 0;
@@ -253,7 +271,7 @@ bool Collide(float characterx, float charactery, float obs1x, float obs2x)
 // Apenas atributo coordenada nos v�rtices
 // 1 VBO com as coordenadas, VAO com apenas 1 ponteiro para atributo
 // A fun��o retorna o identificador do VAO
-int setupGeometry()
+int setupBackground()
 {
 	GLfloat vertices[] = {
 		// posicao          //cor          //tex coord
@@ -310,19 +328,28 @@ int setupGeometry()
 	return VAO;
 }
 
-void drawObstacle(Shader *shader, glm::vec3 color, int pointSize)
+void drawSquareObject(Shader *shader, int texture, float v1, float v2, glm::vec3 color)
 {
-	glPointSize(pointSize);
+	// GLfloat vertices[] = {
+	// 	// posicao
+	// 	-0.5, -0.5, 0.0, // v0  inferior esquerdo
+	// 	-0.5, 0.5, 0.0,	 // v1  superior esquerdo
+	// 	0.5, -0.5, 0.0,	 // v2  inferior direito
+	// 	// posicao
+	// 	-0.5, 0.5, 0.0, // v1  superior esquerdo
+	// 	0.5, 0.5, 0.0,	// v3  superior direito
+	// 	0.5, -0.5, 0.0, // v2  inferior direito
+	// };
 
 	GLfloat vertices[] = {
-		// posicao
-		-0.5, -0.5, 0.0, // v0  inferior esquerdo
-		-0.5, 0.5, 0.0,	 // v1  superior esquerdo
-		0.5, -0.5, 0.0,	 // v2  inferior direito
-		// posicao
-		-0.5, 0.5, 0.0, // v1  superior esquerdo
-		0.5, 0.5, 0.0,	// v3  superior direito
-		0.5, -0.5, 0.0, // v2  inferior direito
+		// posicao       //cor          //tex coord
+		-0.5, -0.5, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0,   // v0  inferior esquerdo
+		-0.5,  0.5, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0,   // v1  superior esquerdo
+		 0.5, -0.5, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0,   // v2  inferior direito
+		// posicao       //cor          //tex coord
+		-0.5,  0.5, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0,    // v1  superior esquerdo
+		 0.5,  0.5, 0.0, 0.0, 1.0, 0.0, 1.0, 1.0,	 // v3  superior direito
+		 0.5, -0.5, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0	 // v2  inferior direito
 	};
 
 	GLuint VBO, VAO;
@@ -331,13 +358,24 @@ void drawObstacle(Shader *shader, glm::vec3 color, int pointSize)
 	glBufferData(GL_ARRAY_BUFFER, 3 * sizeof(vertices), vertices, GL_STATIC_DRAW);
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid *)0);
+	//atributo de posição
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid *)0);
 	glEnableVertexAttribArray(0);
 
+	// Atributo cor
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid *)(3 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(1);
+
+	// Atributo coord tex
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid *)(6 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(2);
+
+	glBindTexture(GL_TEXTURE_2D, texture);
+	shader->setVec2("offset", v1, v2);
 	shader->setVec4("inputColor", color.r, color.g, color.b, 1.0);
-	glDrawArrays(GL_TRIANGLES, 0, 6);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glDrawArrays(GL_TRIANGLES, 0, 6);
 	glBindVertexArray(0);
 }
 
@@ -345,7 +383,7 @@ GLuint generateTexture(string filePath)
 {
 	GLuint texID;
 
-	// Gera o identificador da textura na mem�ria
+	// Gera o identificador da textura na memória 
 	glGenTextures(1, &texID);
 	glBindTexture(GL_TEXTURE_2D, texID);
 
@@ -356,15 +394,15 @@ GLuint generateTexture(string filePath)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 	int width, height, nrChannels;
-	unsigned char *data = stbi_load(filePath.c_str(), &width, &height, &nrChannels, 0);
+	unsigned char* data = stbi_load(filePath.c_str(), &width, &height, &nrChannels, 0);
 
 	if (data)
 	{
-		if (nrChannels == 3) // jpg, bmp
+		if (nrChannels == 3) //jpg, bmp
 		{
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 		}
-		else // png
+		else //png
 		{
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 		}
