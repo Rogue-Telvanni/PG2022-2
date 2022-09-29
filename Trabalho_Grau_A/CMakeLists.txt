@@ -22,11 +22,13 @@ set(SHADER "${CMAKE_SOURCE_DIR}/HelloTriangle/Shader.h"
 
 set(IMAGE "${CMAKE_SOURCE_DIR}/HelloTriangle/stb_image.h"
            "${CMAKE_SOURCE_DIR}/HelloTriangle/stb_image.cpp")
+set(TIMER "${CMAKE_SOURCE_DIR}/HelloTriangle/Timer.h"
+          "${CMAKE_SOURCE_DIR}/HelloTriangle/Timer.cpp")
 
 find_package(OpenGL REQUIRED)
 set(SOURCE_FILES ${CMAKE_SOURCE_DIR}/HelloTriangle/Source.cpp)
 
-add_executable(main ${SOURCE_FILES} ${GLAD} ${SHADER} ${IMAGE})
+add_executable(main ${SOURCE_FILES} ${GLAD} ${SHADER} ${IMAGE} ${TIMER})
 
 # created for xorg X11 need to study to make it work on wayland
 set(LIBS ${CMAKE_SOURCE_DIR}/dependencies/GLFW3/lib/libglfw3.a rt m dl X11 pthread xcb Xau)

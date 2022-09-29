@@ -10,6 +10,8 @@
 #include <iostream>
 #include <string>
 #include <assert.h>
+#include <chrono>
+#include <thread>
 
 using namespace std;
 
@@ -28,8 +30,8 @@ using namespace std;
 #include "stb_image.h"
 
 #include <string>
-
 #include "Shader.h"
+#include "Timer.h"
 
 using namespace std;
 
@@ -41,14 +43,17 @@ int setupBackground();
 int setupGeometry(int nAnimations, int nFrames, float &dy, float &dx);
 void drawSquareObject(Shader *shader, int texture, float v1, float v2,glm::vec3 color = glm::vec3(1.0, 0.0, 1.0));
 GLuint generateTexture(string filePath);
-bool Collide(float characterx, float charactery, float obsx1, float obsx2);
+bool Collide(float characterx, float charactery, float obsx1, float obsx2, float obs3x);
 bool stop;
 
 // Dimens�es da janela (pode ser alterado em tempo de execu��o)
-const GLfloat WIDTH = 800.0f, HEIGHT = 600.0f;
+const GLfloat WIDTH = 1920.0f, HEIGHT = 600.0f;
 // variaveis locais
 float characterHeight;
 float heightIncrease;
+float rotation = 0.0f;
+bool onAir = false;
+
 
 int main()
 {
@@ -59,9 +64,9 @@ int main()
 	// Voc� deve adaptar para a vers�o do OpenGL suportada por sua placa
 	// Sugest�o: comente essas linhas de c�digo para desobrir a vers�o e
 	// depois atualize (por exemplo: 4.5 com 4 e 5)
-	// glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-	// glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
-	// glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
 
 	// Cria��o da janela GLFW
 	GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, "Ola Mundo!", nullptr, nullptr);
@@ -102,13 +107,13 @@ int main()
 	// Gerando um buffer simples, com a geometria de um tri�ngulo
 	GLuint VAO_Background = setupBackground();
 	float dx, dy;
-	GLuint VAO_Player = setupGeometry(1, 5, dy, dx);
+	GLuint VAO_Player = setupGeometry(12, 10, dy, dx);
 
-	int iFrame = 0;
+	int iFrame = 4;
 	// Gera��o da textura
 	GLuint texID = generateTexture("../textures/desert-100.jpg");
 	GLuint texIDRock = generateTexture("../textures/Rock Pile.png");
-	GLuint texIDPersonagem = generateTexture("../textures/wolfs.png");
+	GLuint texIDPersonagem = generateTexture("../textures/wolfsheet1.png");
 
 	// Cria��o da matriz de proje��o paralela ortogr�fica
 	glm::mat4 projection = glm::mat4(1); // matriz identidade
@@ -121,16 +126,22 @@ int main()
 
 	glActiveTexture(GL_TEXTURE0);
 	glUniform1i(glGetUniformLocation(shader.ID, "tex_buffer"), 0);
-	float obstacleXtransform = 380.0f;
-	float obstacle2Xtransform = 750.0f;
+	float obstacleXtransform = 2000.0f;
+	float obstacle2Xtransform = 2600.0f;
+	float obstacle3Xtransform = 3350.0f;
 	float obsDecrease = 10.0f;
 	characterHeight = 150.0f;
 	stop = false;
+	Timer timer;
+	int walkAnimation = 5;
+	int jumpAnimation = 3;
+	bool descending = false;
 
-	// Loop da aplica��o - "game loop"
+	// Loop da aplicação - "game loop"
 	while (!glfwWindowShouldClose(window))
 	{
 		// Checa se houveram eventos de input (key pressed, mouse moved etc.) e chama as fun��es de callback correspondentes
+		timer.start();
 		glfwPollEvents();
 		if (stop)
 		{
@@ -160,22 +171,45 @@ int main()
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 
 		// personagem
-		cout<<"iFrame " << iFrame<<endl;
-		shader.setVec2("offset", iFrame * dx, dy);
+		if(onAir)
+			shader.setVec2("offset", 8 * dx, walkAnimation * dy);
+		else
+			shader.setVec2("offset", iFrame * dx, walkAnimation * dy);
+
 		model = glm::mat4(1); // matriz de modelo: transforma��es na geometria
 		model = glm::translate(model, glm::vec3(70.0f, characterHeight, 0.0f));
+		model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));
 		model = glm::scale(model, glm::vec3(100.0f, 100.f, 1.0f));
 		characterHeight += heightIncrease;
 		if (characterHeight == 150.0f)
+		{
+			descending = false;
+			onAir = false;
 			heightIncrease = 0.0f;
-		else if (characterHeight == 354.0f)
+			rotation = 0.0f;
+			walkAnimation = 5;
+		}
+		else if (characterHeight == 378.0f)
+		{
+			rotation = 0.0f;
 			heightIncrease = -12.0f;
+			descending = true;
+		}
+		else if(characterHeight > 320.0f && characterHeight < 378.0f && descending)
+		{
+			rotation = 0.0f;
+		}
+		else if(characterHeight > 150.0f && characterHeight < 250.0f && descending)
+		{
+			rotation = 330.0f;
+		}
 		shader.setMat4("model", glm::value_ptr(model));
-		iFrame = ((iFrame + 1) % 5);
+		iFrame = ((iFrame + 1) % 10);
+		if(iFrame == 0)
+			iFrame = 5;
 		glBindTexture(GL_TEXTURE_2D, texIDPersonagem);
 		glBindVertexArray(VAO_Player); //conectando com o buffer de geometria correto
 		glDrawArrays(GL_TRIANGLES, 0, 6);
-		//drawSquareObject(&shader, texIDRock, 0.0f, 0.0f);
 		float characterx = model[3][0];
 		float charactery = model[3][1];
 
@@ -193,7 +227,7 @@ int main()
 		if (obstacleXtransform > 20)
 			obstacleXtransform -= obsDecrease;
 		else
-			obstacleXtransform = 800.0f;
+			obstacleXtransform = 2000.0f;
 
 		// obstacle 2
 		model = glm::mat4(1);
@@ -205,19 +239,42 @@ int main()
 		if (obstacle2Xtransform > 20)
 			obstacle2Xtransform -= obsDecrease;
 		else
-			obstacle2Xtransform = 800.0f;
+			obstacle2Xtransform = obstacleXtransform + 600.0f;
 
 		glBindVertexArray(0);
 		float obs2x = model[3][0];
-		if (Collide(characterx, charactery, obs1x, obs2x))
+
+		// obstacle 3
+		model = glm::mat4(1);
+		shader.setMat4("model", glm::value_ptr(model));
+		model = glm::translate(model, glm::vec3(obstacle3Xtransform, 150.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(100.0f, 100.0f, 1.0f));
+		shader.setMat4("model", glm::value_ptr(model));
+		drawSquareObject(&shader, texIDRock, 0.0f, 0.0f);
+		if (obstacle3Xtransform > 20)
+			obstacle3Xtransform -= obsDecrease;
+		else
+			obstacle3Xtransform = obstacle2Xtransform + 750.0f;
+
+		glBindVertexArray(0);
+		float obs3x = model[3][0];
+
+		if (Collide(characterx, charactery, obs1x, obs2x, obs3x))
 		{
 			stop = true;
 		}
 		// Troca os buffers da tela
+		timer.finish();
+		double waitingTime = timer.calcWaitingTime(60, timer.getElapsedTimeMs());
+		if (waitingTime)
+		{
+			std::this_thread::sleep_for(std::chrono::milliseconds((int)waitingTime));
+		}
 		glfwSwapBuffers(window);
 	}
 	// Pede pra OpenGL desalocar os buffers
 	glDeleteVertexArrays(1, &VAO_Background);
+	glDeleteVertexArrays(1, &VAO_Player);
 	// Finaliza a execu��o da GLFW, limpando os recursos alocados por ela
 	glfwTerminate();
 	return 0;
@@ -234,9 +291,14 @@ void key_callback(GLFWwindow *window, int key, int scancode, int action, int mod
 		{
 		case GLFW_KEY_UP:
 		{
+			if(stop)
+				return;
+
 			if (characterHeight == 150.0f)
 			{
 				heightIncrease = 12.0f;
+				rotation = 30.0f;
+				onAir = true;
 			}
 		}
 		break;
@@ -246,7 +308,7 @@ void key_callback(GLFWwindow *window, int key, int scancode, int action, int mod
 	}
 }
 
-bool Collide(float characterx, float charactery, float obs1x, float obs2x)
+bool Collide(float characterx, float charactery, float obs1x, float obs2x, float obs3x)
 {
 	float charX = characterx;
 	float charX2 = characterx + 100;
@@ -270,6 +332,14 @@ bool Collide(float characterx, float charactery, float obs1x, float obs2x)
 		if (charactery >= 150 && charactery <= 250)
 		{
 			cout << "colisão obs2 em x " << obs2x << "E colisão em Y em "<< charactery << endl;
+			return true;
+		}
+	}
+	if (obs3x >= charX && obs2x <= charX2)
+	{
+		if (charactery >= 150 && charactery <= 250)
+		{
+			cout << "colisão obs3 em x " << obs3x << "E colisão em Y em " << charactery << endl;
 			return true;
 		}
 	}

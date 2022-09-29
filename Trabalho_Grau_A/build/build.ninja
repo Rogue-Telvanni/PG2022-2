@@ -77,6 +77,13 @@ build CMakeFiles/main.dir/HelloTriangle/stb_image.cpp.o: CXX_COMPILER__main_Debu
   OBJECT_DIR = CMakeFiles/main.dir
   OBJECT_FILE_DIR = CMakeFiles/main.dir/HelloTriangle
 
+build CMakeFiles/main.dir/HelloTriangle/Timer.cpp.o: CXX_COMPILER__main_Debug /home/joao/college/processamentoGrafico/Trabalho_Grau_A/HelloTriangle/Timer.cpp || cmake_object_order_depends_target_main
+  DEP_FILE = CMakeFiles/main.dir/HelloTriangle/Timer.cpp.o.d
+  FLAGS = -g
+  INCLUDES = -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3/include -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3/lib -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3 -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLAD/include -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/glm
+  OBJECT_DIR = CMakeFiles/main.dir
+  OBJECT_FILE_DIR = CMakeFiles/main.dir/HelloTriangle
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target main
@@ -85,7 +92,7 @@ build CMakeFiles/main.dir/HelloTriangle/stb_image.cpp.o: CXX_COMPILER__main_Debu
 #############################################
 # Link the executable main
 
-build main: CXX_EXECUTABLE_LINKER__main_Debug CMakeFiles/main.dir/HelloTriangle/Source.cpp.o CMakeFiles/main.dir/dependencies/GLAD/src/glad.c.o CMakeFiles/main.dir/HelloTriangle/Shader.cpp.o CMakeFiles/main.dir/HelloTriangle/stb_image.cpp.o | /home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3/lib/libglfw3.a /usr/lib/x86_64-linux-gnu/libGL.so
+build main: CXX_EXECUTABLE_LINKER__main_Debug CMakeFiles/main.dir/HelloTriangle/Source.cpp.o CMakeFiles/main.dir/dependencies/GLAD/src/glad.c.o CMakeFiles/main.dir/HelloTriangle/Shader.cpp.o CMakeFiles/main.dir/HelloTriangle/stb_image.cpp.o CMakeFiles/main.dir/HelloTriangle/Timer.cpp.o | /home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3/lib/libglfw3.a /usr/lib/x86_64-linux-gnu/libGL.so
   FLAGS = -g
   LINK_FLAGS = -rdynamic
   LINK_LIBRARIES = /home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3/lib/libglfw3.a  -lrt  -lm  -ldl  -lX11  -lpthread  -lxcb  -lXau  -lGL

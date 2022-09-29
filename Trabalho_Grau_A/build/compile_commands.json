@@ -18,5 +18,10 @@
   "directory": "/home/joao/college/processamentoGrafico/Trabalho_Grau_A/build",
   "command": "/usr/bin/g++ -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3/include -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3/lib -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3 -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLAD/include -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/glm -g -o CMakeFiles/main.dir/HelloTriangle/stb_image.cpp.o -c /home/joao/college/processamentoGrafico/Trabalho_Grau_A/HelloTriangle/stb_image.cpp",
   "file": "/home/joao/college/processamentoGrafico/Trabalho_Grau_A/HelloTriangle/stb_image.cpp"
+},
+{
+  "directory": "/home/joao/college/processamentoGrafico/Trabalho_Grau_A/build",
+  "command": "/usr/bin/g++ -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3/include -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3/lib -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3 -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLAD/include -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/glm -g -o CMakeFiles/main.dir/HelloTriangle/Timer.cpp.o -c /home/joao/college/processamentoGrafico/Trabalho_Grau_A/HelloTriangle/Timer.cpp",
+  "file": "/home/joao/college/processamentoGrafico/Trabalho_Grau_A/HelloTriangle/Timer.cpp"
 }
 ]
