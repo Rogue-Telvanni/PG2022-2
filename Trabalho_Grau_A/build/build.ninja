@@ -52,35 +52,35 @@ build cmake_object_order_depends_target_main: phony || CMakeFiles/main.dir
 build CMakeFiles/main.dir/HelloTriangle/Source.cpp.o: CXX_COMPILER__main_Debug /home/joao/college/processamentoGrafico/Trabalho_Grau_A/HelloTriangle/Source.cpp || cmake_object_order_depends_target_main
   DEP_FILE = CMakeFiles/main.dir/HelloTriangle/Source.cpp.o.d
   FLAGS = -g
-  INCLUDES = -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3/include -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3/lib -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3 -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLAD/include -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/glm
+  INCLUDES = -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3/include -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3/lib -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3 -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLAD/include -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/glm -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/FreeType/freetype -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/FreeType/lib -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/FreeType -I/usr/lib64
   OBJECT_DIR = CMakeFiles/main.dir
   OBJECT_FILE_DIR = CMakeFiles/main.dir/HelloTriangle
 
 build CMakeFiles/main.dir/dependencies/GLAD/src/glad.c.o: C_COMPILER__main_Debug /home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLAD/src/glad.c || cmake_object_order_depends_target_main
   DEP_FILE = CMakeFiles/main.dir/dependencies/GLAD/src/glad.c.o.d
   FLAGS = -g
-  INCLUDES = -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3/include -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3/lib -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3 -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLAD/include -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/glm
+  INCLUDES = -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3/include -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3/lib -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3 -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLAD/include -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/glm -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/FreeType/freetype -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/FreeType/lib -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/FreeType -I/usr/lib64
   OBJECT_DIR = CMakeFiles/main.dir
   OBJECT_FILE_DIR = CMakeFiles/main.dir/dependencies/GLAD/src
 
 build CMakeFiles/main.dir/HelloTriangle/Shader.cpp.o: CXX_COMPILER__main_Debug /home/joao/college/processamentoGrafico/Trabalho_Grau_A/HelloTriangle/Shader.cpp || cmake_object_order_depends_target_main
   DEP_FILE = CMakeFiles/main.dir/HelloTriangle/Shader.cpp.o.d
   FLAGS = -g
-  INCLUDES = -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3/include -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3/lib -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3 -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLAD/include -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/glm
+  INCLUDES = -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3/include -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3/lib -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3 -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLAD/include -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/glm -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/FreeType/freetype -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/FreeType/lib -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/FreeType -I/usr/lib64
   OBJECT_DIR = CMakeFiles/main.dir
   OBJECT_FILE_DIR = CMakeFiles/main.dir/HelloTriangle
 
 build CMakeFiles/main.dir/HelloTriangle/stb_image.cpp.o: CXX_COMPILER__main_Debug /home/joao/college/processamentoGrafico/Trabalho_Grau_A/HelloTriangle/stb_image.cpp || cmake_object_order_depends_target_main
   DEP_FILE = CMakeFiles/main.dir/HelloTriangle/stb_image.cpp.o.d
   FLAGS = -g
-  INCLUDES = -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3/include -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3/lib -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3 -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLAD/include -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/glm
+  INCLUDES = -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3/include -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3/lib -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3 -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLAD/include -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/glm -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/FreeType/freetype -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/FreeType/lib -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/FreeType -I/usr/lib64
   OBJECT_DIR = CMakeFiles/main.dir
   OBJECT_FILE_DIR = CMakeFiles/main.dir/HelloTriangle
 
 build CMakeFiles/main.dir/HelloTriangle/Timer.cpp.o: CXX_COMPILER__main_Debug /home/joao/college/processamentoGrafico/Trabalho_Grau_A/HelloTriangle/Timer.cpp || cmake_object_order_depends_target_main
   DEP_FILE = CMakeFiles/main.dir/HelloTriangle/Timer.cpp.o.d
   FLAGS = -g
-  INCLUDES = -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3/include -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3/lib -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3 -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLAD/include -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/glm
+  INCLUDES = -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3/include -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3/lib -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3 -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLAD/include -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/glm -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/FreeType/freetype -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/FreeType/lib -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/FreeType -I/usr/lib64
   OBJECT_DIR = CMakeFiles/main.dir
   OBJECT_FILE_DIR = CMakeFiles/main.dir/HelloTriangle
 
@@ -95,7 +95,7 @@ build CMakeFiles/main.dir/HelloTriangle/Timer.cpp.o: CXX_COMPILER__main_Debug /h
 build main: CXX_EXECUTABLE_LINKER__main_Debug CMakeFiles/main.dir/HelloTriangle/Source.cpp.o CMakeFiles/main.dir/dependencies/GLAD/src/glad.c.o CMakeFiles/main.dir/HelloTriangle/Shader.cpp.o CMakeFiles/main.dir/HelloTriangle/stb_image.cpp.o CMakeFiles/main.dir/HelloTriangle/Timer.cpp.o | /home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3/lib/libglfw3.a /usr/lib/x86_64-linux-gnu/libGL.so
   FLAGS = -g
   LINK_FLAGS = -rdynamic
-  LINK_LIBRARIES = /home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3/lib/libglfw3.a  -lrt  -lm  -ldl  -lX11  -lpthread  -lxcb  -lXau  -lGL
+  LINK_LIBRARIES = /home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3/lib/libglfw3.a  -lrt  -lm  -ldl  -lX11  -lpthread  -lxcb  -lXau  -lGL  -lfreetype
   OBJECT_DIR = CMakeFiles/main.dir
   POST_BUILD = :
   PRE_LINK = :

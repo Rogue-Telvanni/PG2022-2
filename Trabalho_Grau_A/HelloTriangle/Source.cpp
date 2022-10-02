@@ -29,22 +29,28 @@ using namespace std;
 // STB_IMAGE
 #include "stb_image.h"
 
+// Freetype
+#include "ft2build.h"
+#include FT_FREETYPE_H
+
 #include <string>
+#include <map>
 #include "Shader.h"
 #include "Timer.h"
 
-using namespace std;
-
 // Prot�tipo da fun��o de callback de teclado
 void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode);
-
+void generateCharacters(FT_Face face, FT_Library ft);
+void RenderText(Shader &shader, std::string text, float x, float y, float scale, glm::vec3 color);
 // Prot�tipos das fun��es
 int setupBackground();
-int setupGeometry(int nAnimations, int nFrames, float &dy, float &dx);
-void drawSquareObject(Shader *shader, int texture, float v1, float v2,glm::vec3 color = glm::vec3(1.0, 0.0, 1.0));
+int RenderGeometry(int nAnimations, int nFrames, float &dy, float &dx);
+void RenderSquareObject(Shader *shader, int texture, float v1, float v2,glm::vec3 color = glm::vec3(1.0, 0.0, 1.0));
 GLuint generateTexture(string filePath);
 bool Collide(float characterx, float charactery, float obsx1, float obsx2, float obs3x);
 bool stop;
+bool start;
+bool reset;
 
 // Dimens�es da janela (pode ser alterado em tempo de execu��o)
 const GLfloat WIDTH = 1920.0f, HEIGHT = 600.0f;
@@ -54,6 +60,14 @@ float heightIncrease;
 float rotation = 0.0f;
 bool onAir = false;
 
+struct Character {
+    unsigned int TextureID;  // ID handle of the glyph texture
+    glm::ivec2   Size;       // Size of glyph
+    glm::ivec2   Bearing;    // Offset from baseline to left/top of glyph
+    long Advance;    // Offset to advance to next glyph
+};
+
+std::map<char, Character> Characters;
 
 int main()
 {
@@ -98,16 +112,35 @@ int main()
 	// Definindo as dimens�es da viewport com as mesmas dimens�es da janela da aplica��o
 	int width, height;
 	glfwGetFramebufferSize(window, &width, &height);
-	// glViewport(0, 0, width, height);
 	glViewport(0, 0, width, height);
+
+	/// Freetype
+	FT_Library ft;
+	if (FT_Init_FreeType(&ft))
+	{
+		std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
+		return -1;
+	}
+
+	FT_Face face;
+	if (FT_New_Face(ft, "../fonts/BitterPro-Light.ttf", 0, &face))
+	{
+		std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
+		//return -1;
+	}
+
+	FT_Set_Pixel_Sizes(face, 0, 48);
+	generateCharacters(face, ft);
+	/// Freetype
 
 	// Compilando e buildando o programa de shader
 	Shader shader("../shaders/hello.vs", "../shaders/hello.fs");
+	Shader txtShader("../shaders/text.vs", "../shaders/text.fs");
 
 	// Gerando um buffer simples, com a geometria de um tri�ngulo
 	GLuint VAO_Background = setupBackground();
 	float dx, dy;
-	GLuint VAO_Player = setupGeometry(12, 10, dy, dx);
+	GLuint VAO_Player = RenderGeometry(12, 10, dy, dx);
 
 	int iFrame = 4;
 	// Gera��o da textura
@@ -118,7 +151,7 @@ int main()
 	// Cria��o da matriz de proje��o paralela ortogr�fica
 	glm::mat4 projection = glm::mat4(1); // matriz identidade
 	// projection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, -1.0f, 1.0f);
-	projection = glm::ortho(0.0f, WIDTH, 0.0f, HEIGHT, -1.0f, 1.0f);
+	projection = glm::ortho(0.0f, WIDTH, 0.0f, HEIGHT, -3.0f, 1.0f);
 
 	glUseProgram(shader.ID);
 
@@ -129,9 +162,10 @@ int main()
 	float obstacleXtransform = 2000.0f;
 	float obstacle2Xtransform = 2600.0f;
 	float obstacle3Xtransform = 3350.0f;
-	float obsDecrease = 10.0f;
+	float obsDecrease = 0.0f;
 	characterHeight = 150.0f;
 	stop = false;
+	start = true;
 	Timer timer;
 	int walkAnimation = 5;
 	int jumpAnimation = 3;
@@ -145,7 +179,31 @@ int main()
 		glfwPollEvents();
 		if (stop)
 		{
+			//glUseProgram(txtShader.ID);
+			RenderText(shader, "CLIQUE ENTER PARA RECOMEÇAR", 0.0f, 0.0f, 100.0f, glm::vec3(1.0, 1.0f, 1.0f));
+			//glUseProgram(shader.ID);
 			obsDecrease = 0.0f;
+		}
+		else if(start)
+		{
+			//glUseProgram(txtShader.ID); tentar usar o txtShader ao inves do shader sem sucesso
+			RenderText(shader, "CLIQUE ENTER PARA COMEÇAR", 25.0f, 25.0f, 100.0f, glm::vec3(1.0 , 1.0f, 1.0f));
+			//glUseProgram(shader.ID);
+		}
+		else
+		{
+			RenderText(shader, "Pontuação", 25.0f, 25.0f, 1.0f, glm::vec3(1.0 , 1.0f, 1.0f));
+		}
+
+		
+
+		if(reset)
+		{
+			reset = false;
+			obstacleXtransform = 2000.0f;
+			obstacle2Xtransform = 2600.0f;
+			obstacle3Xtransform = 3350.0f;
+			obsDecrease = 10.0f;
 		}
 		// Limpa o buffer de cor
 		glClearColor(0.8f, 0.8f, 0.8f, 1.0f); // cor de fundo
@@ -221,7 +279,7 @@ int main()
 		model = glm::scale(model, glm::vec3(100.0f, 100.0f, 1.0f));
 		shader.setMat4("model", glm::value_ptr(model));
 		
-		drawSquareObject(&shader, texIDRock, 0.0f, 0.0f);
+		RenderSquareObject(&shader, texIDRock, 0.0f, 0.0f);
 		float obs1x = model[3][0];
 
 		if (obstacleXtransform > 20)
@@ -235,7 +293,7 @@ int main()
 		model = glm::translate(model, glm::vec3(obstacle2Xtransform, 150.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(100.0f, 100.0f, 1.0f));
 		shader.setMat4("model", glm::value_ptr(model));
-		drawSquareObject(&shader, texIDRock, 0.0f, 0.0f);
+		RenderSquareObject(&shader, texIDRock, 0.0f, 0.0f);
 		if (obstacle2Xtransform > 20)
 			obstacle2Xtransform -= obsDecrease;
 		else
@@ -250,7 +308,7 @@ int main()
 		model = glm::translate(model, glm::vec3(obstacle3Xtransform, 150.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(100.0f, 100.0f, 1.0f));
 		shader.setMat4("model", glm::value_ptr(model));
-		drawSquareObject(&shader, texIDRock, 0.0f, 0.0f);
+		RenderSquareObject(&shader, texIDRock, 0.0f, 0.0f);
 		if (obstacle3Xtransform > 20)
 			obstacle3Xtransform -= obsDecrease;
 		else
@@ -270,6 +328,7 @@ int main()
 		{
 			std::this_thread::sleep_for(std::chrono::milliseconds((int)waitingTime));
 		}
+
 		glfwSwapBuffers(window);
 	}
 	// Pede pra OpenGL desalocar os buffers
@@ -291,7 +350,7 @@ void key_callback(GLFWwindow *window, int key, int scancode, int action, int mod
 		{
 		case GLFW_KEY_UP:
 		{
-			if(stop)
+			if(stop || start)
 				return;
 
 			if (characterHeight == 150.0f)
@@ -299,6 +358,26 @@ void key_callback(GLFWwindow *window, int key, int scancode, int action, int mod
 				heightIncrease = 12.0f;
 				rotation = 30.0f;
 				onAir = true;
+			}
+		}
+		break;
+		case GLFW_KEY_ENTER:
+		{
+			if (stop || start)
+			{
+				stop = false;
+				start = false;
+				reset = true;
+			}
+		}
+		break;
+		case GLFW_KEY_KP_ENTER:
+		{
+			if (stop || start)
+			{
+				stop = false;
+				start = false;
+				reset = true;
 			}
 		}
 		break;
@@ -347,7 +426,7 @@ bool Collide(float characterx, float charactery, float obs1x, float obs2x, float
 	return false;
 }
 
-int setupGeometry(int nAnimations, int nFrames, float &dy, float &dx)
+int RenderGeometry(int nAnimations, int nFrames, float &dy, float &dx)
 {
 	// Aqui setamos as coordenadas x, y e z do triângulo e as armazenamos de forma
 	// sequencial, já visando mandar para o VBO (Vertex Buffer Objects)
@@ -416,10 +495,10 @@ int setupBackground()
 {
 	float dy = 1;
 	float dx = 1;
-	return setupGeometry(1, 1, dy, dx);
+	return RenderGeometry(1, 1, dy, dx);
 }
 
-void drawSquareObject(Shader *shader, int texture, float v1, float v2, glm::vec3 color)
+void RenderSquareObject(Shader *shader, int texture, float v1, float v2, glm::vec3 color)
 {
 	GLfloat vertices[] = {
 		// posicao       //cor          //tex coord
@@ -500,4 +579,101 @@ GLuint generateTexture(string filePath)
 	glActiveTexture(GL_TEXTURE0);
 
 	return texID;
+}
+
+void RenderText(Shader &shader, std::string text, float x, float y, float scale, glm::vec3 color)
+{
+    // iterate through all characters
+    std::string::const_iterator c;
+    for (c = text.begin(); c != text.end(); c++) 
+    {
+        Character ch = Characters[*c];
+
+        float xpos = x + ch.Bearing.x * scale;
+        float ypos = y - (ch.Size.y - ch.Bearing.y) * scale;
+
+        float w = ch.Size.x * scale;
+        float h = ch.Size.y * scale;
+        // update VBO for each character
+        float vertices[6][4] = {
+            { xpos,     ypos + h,   0.0f, 0.0f },            
+            { xpos,     ypos,       0.0f, 1.0f },
+            { xpos + w, ypos,       1.0f, 1.0f },
+
+            { xpos,     ypos + h,   0.0f, 0.0f },
+            { xpos + w, ypos,       1.0f, 1.0f },
+            { xpos + w, ypos + h,   1.0f, 0.0f }           
+        };
+        // render glyph texture over quad
+        glBindTexture(GL_TEXTURE_2D, ch.TextureID);
+
+		unsigned int VAO, VBO;
+		glGenVertexArrays(1, &VAO);
+
+		glGenBuffers(1, &VBO);
+		glBindVertexArray(VAO);
+		glUniform3f(glGetUniformLocation(shader.ID, "textColor"), color.x, color.y, color.z);
+		glBindVertexArray(VAO);
+
+		glBindBuffer(GL_ARRAY_BUFFER, VBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), 0);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindVertexArray(0);
+		// update content of VBO memory
+		glBindBuffer(GL_ARRAY_BUFFER, VBO);
+        glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices); // be sure to use glBufferSubData and not glBufferData
+
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        // render quad
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+        // now advance cursors for next glyph (note that advance is number of 1/64 pixels)
+        x += (ch.Advance >> 6) * scale; // bitshift by 6 to get value in pixels (2^6 = 64 (divide amount of 1/64th pixels by 64 to get amount of pixels))
+    }
+    glBindVertexArray(0);
+    glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void generateCharacters(FT_Face face, FT_Library ft)
+{
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // disable byte-alignment restriction
+
+	for (unsigned char c = 0; c < 128; c++)
+	{
+		// load character glyph
+		if (FT_Load_Char(face, c, FT_LOAD_RENDER))
+		{
+			std::cout << "ERROR::FREETYTPE: Failed to load Glyph" << std::endl;
+			continue;
+		}
+		// generate texture
+		unsigned int texture;
+		glGenTextures(1, &texture);
+		glBindTexture(GL_TEXTURE_2D, texture);
+		glTexImage2D(
+			GL_TEXTURE_2D,
+			0,
+			GL_RED,
+			face->glyph->bitmap.width,
+			face->glyph->bitmap.rows,
+			0,
+			GL_RED,
+			GL_UNSIGNED_BYTE,
+			face->glyph->bitmap.buffer);
+		// set texture options
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		// now store character for later use
+		Character character = {
+			texture,
+			glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
+			glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
+			face->glyph->advance.x};
+		Characters.insert(std::pair<char, Character>(c, character));
+	}
+	FT_Done_Face(face);
+	FT_Done_FreeType(ft);
 }

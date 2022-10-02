@@ -13,6 +13,10 @@ include_directories(dependencies/GLFW3/lib)
 include_directories(dependencies/GLFW3)
 include_directories(dependencies/GLAD/include)
 include_directories(dependencies/glm)
+include_directories(dependencies/FreeType/freetype)
+include_directories(dependencies/FreeType/lib)
+include_directories(dependencies/FreeType)
+include_directories(/usr/lib64)
 
 set(GLAD "${CMAKE_SOURCE_DIR}/dependencies/GLAD/include/glad/glad.h"
          "${CMAKE_SOURCE_DIR}/dependencies/GLAD/src/glad.c")
@@ -24,14 +28,16 @@ set(IMAGE "${CMAKE_SOURCE_DIR}/HelloTriangle/stb_image.h"
            "${CMAKE_SOURCE_DIR}/HelloTriangle/stb_image.cpp")
 set(TIMER "${CMAKE_SOURCE_DIR}/HelloTriangle/Timer.h"
           "${CMAKE_SOURCE_DIR}/HelloTriangle/Timer.cpp")
+set(FREETYPE "${CMAKE_SOURCE_DIR}/HelloTriangle/ft2build.h")
 
 find_package(OpenGL REQUIRED)
 set(SOURCE_FILES ${CMAKE_SOURCE_DIR}/HelloTriangle/Source.cpp)
 
-add_executable(main ${SOURCE_FILES} ${GLAD} ${SHADER} ${IMAGE} ${TIMER})
+add_executable(main ${SOURCE_FILES} ${GLAD} ${SHADER} ${IMAGE} ${TIMER} ${FREETYPE})
 
-# created for xorg X11 need to study to make it work on wayland
+# created for xorg X11 running form xWayland
 set(LIBS ${CMAKE_SOURCE_DIR}/dependencies/GLFW3/lib/libglfw3.a rt m dl X11 pthread xcb Xau)
-set(LIBS ${LIBS} ${OPENGL_LIBRARIES})
+set(TEXT freetype)
+set(LIBS ${LIBS} ${OPENGL_LIBRARIES} ${TEXT})
 
 target_link_libraries(main ${LIBS})

@@ -7,7 +7,10 @@
                 "${workspaceFolder}/dependencies/GLAD/src",
                 "${workspaceFolder}/dependencies/GLFW3",
                 "${workspaceFolder}/dependencies/GLAD/include",
-                "${workspaceFolder}/dependencies/glm"
+                "${workspaceFolder}/dependencies/glm",
+                "${workspaceFolder}/dependencies/freetype2",
+                "${workspaceFolder}/dependencies/freetype2/include",
+                "${workspaceFolder}/dependencies/freetype2/lib"
             ],
             "forcedInclude": [
                 "${workspaceFolder}/dependencies/GLAD/include/glad/glad.h"
