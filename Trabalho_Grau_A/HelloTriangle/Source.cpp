@@ -115,27 +115,27 @@ int main()
 	glViewport(0, 0, width, height);
 
 	/// Freetype
-	FT_Library ft;
-	if (FT_Init_FreeType(&ft))
-	{
-		std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
-		return -1;
-	}
+	// FT_Library ft;
+	// if (FT_Init_FreeType(&ft))
+	// {
+	// 	std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
+	// 	return -1;
+	// }
 
-	FT_Face face;
-	if (FT_New_Face(ft, "../fonts/BitterPro-Light.ttf", 0, &face))
-	{
-		std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
-		//return -1;
-	}
+	// FT_Face face;
+	// if (FT_New_Face(ft, "../fonts/BitterPro-Light.ttf", 0, &face))
+	// {
+	// 	std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
+	// 	//return -1;
+	// }
 
-	FT_Set_Pixel_Sizes(face, 0, 48);
-	generateCharacters(face, ft);
+	// FT_Set_Pixel_Sizes(face, 0, 48);
+	// generateCharacters(face, ft);
 	/// Freetype
 
 	// Compilando e buildando o programa de shader
 	Shader shader("../shaders/hello.vs", "../shaders/hello.fs");
-	Shader txtShader("../shaders/text.vs", "../shaders/text.fs");
+	//Shader txtShader("../shaders/text.vs", "../shaders/text.fs");
 
 	// Gerando um buffer simples, com a geometria de um tri�ngulo
 	GLuint VAO_Background = setupBackground();
@@ -151,7 +151,7 @@ int main()
 	// Cria��o da matriz de proje��o paralela ortogr�fica
 	glm::mat4 projection = glm::mat4(1); // matriz identidade
 	// projection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, -1.0f, 1.0f);
-	projection = glm::ortho(0.0f, WIDTH, 0.0f, HEIGHT, -3.0f, 1.0f);
+	projection = glm::ortho(0.0f, WIDTH, 0.0f, HEIGHT, -3.0f, 3.0f);
 
 	glUseProgram(shader.ID);
 
@@ -180,19 +180,27 @@ int main()
 		if (stop)
 		{
 			//glUseProgram(txtShader.ID);
-			RenderText(shader, "CLIQUE ENTER PARA RECOMEÇAR", 0.0f, 0.0f, 100.0f, glm::vec3(1.0, 1.0f, 1.0f));
+			// model = glm::mat4(1); // matriz de modelo: transformações na geometria
+			// model = glm::translate(model, glm::vec3(WIDTH / 2, HEIGHT / 2, 0.0f));
+			// model = glm::scale(model, glm::vec3(WIDTH, HEIGHT, 1.0f));
+			// shader.setMat4("model", glm::value_ptr(model));
+			// RenderText(shader, "CLIQUE ENTER PARA RECOMEÇAR", 0.0f, 0.0f, 100.0f, glm::vec3(1.0, 1.0f, 1.0f));
 			//glUseProgram(shader.ID);
 			obsDecrease = 0.0f;
+			iFrame = 5;
 		}
 		else if(start)
 		{
-			//glUseProgram(txtShader.ID); tentar usar o txtShader ao inves do shader sem sucesso
-			RenderText(shader, "CLIQUE ENTER PARA COMEÇAR", 25.0f, 25.0f, 100.0f, glm::vec3(1.0 , 1.0f, 1.0f));
+			//glUseProgram(txtShader.ID); //tentar usar o txtShader ao inves do shader sem sucesso
+			//RenderText(shader, "CLIQUE ENTER PARA COMEÇAR", 25.0f, 25.0f, 100.0f, glm::vec3(1.0 , 1.0f, 1.0f));
 			//glUseProgram(shader.ID);
+			obsDecrease = 0.0f;
+			iFrame = 5;
 		}
 		else
 		{
 			RenderText(shader, "Pontuação", 25.0f, 25.0f, 1.0f, glm::vec3(1.0 , 1.0f, 1.0f));
+			obsDecrease = 10.0f;
 		}
 
 		
@@ -395,10 +403,10 @@ bool Collide(float characterx, float charactery, float obs1x, float obs2x, float
 	float charY = charactery;
 	float charY2 = charactery + 100;
 
-	cout << "charX " << charX << " charX2 " << charX2 << endl;
-	cout << "charY " << charY << " charY2 " << charY2 << endl;
+	//cout << "charX " << charX << " charX2 " << charX2 << endl;
+	//cout << "charY " << charY << " charY2 " << charY2 << endl;
 
-	if (obs1x >= charX && obs1x <= charX2)
+	if (obs1x >= charX + 10 && obs1x <= charX2 - 15)
 	{
 		if (charactery >= 150 && charactery <= 250)
 		{
@@ -406,7 +414,7 @@ bool Collide(float characterx, float charactery, float obs1x, float obs2x, float
 			return true;
 		}
 	}
-	if (obs2x >= charX && obs2x <= charX2)
+	if (obs2x >= charX + 10 && obs2x <= charX2 - 15)
 	{
 		if (charactery >= 150 && charactery <= 250)
 		{
