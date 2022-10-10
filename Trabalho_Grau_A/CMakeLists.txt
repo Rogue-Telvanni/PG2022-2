@@ -28,12 +28,18 @@ set(IMAGE "${CMAKE_SOURCE_DIR}/HelloTriangle/stb_image.h"
            "${CMAKE_SOURCE_DIR}/HelloTriangle/stb_image.cpp")
 set(TIMER "${CMAKE_SOURCE_DIR}/HelloTriangle/Timer.h"
           "${CMAKE_SOURCE_DIR}/HelloTriangle/Timer.cpp")
+
 set(FREETYPE "${CMAKE_SOURCE_DIR}/HelloTriangle/ft2build.h")
+
+set(SCENE_SPRITE "${CMAKE_SOURCE_DIR}/HelloTriangle/SceneManager.h"
+                 "${CMAKE_SOURCE_DIR}/HelloTriangle/SceneManager.cpp"
+                 "${CMAKE_SOURCE_DIR}/HelloTriangle/Sprite.h"
+                 "${CMAKE_SOURCE_DIR}/HelloTriangle/Sprite.cpp")
 
 find_package(OpenGL REQUIRED)
 set(SOURCE_FILES ${CMAKE_SOURCE_DIR}/HelloTriangle/Source.cpp)
 
-add_executable(main ${SOURCE_FILES} ${GLAD} ${SHADER} ${IMAGE} ${TIMER} ${FREETYPE})
+add_executable(main ${SOURCE_FILES} ${GLAD} ${SHADER} ${IMAGE} ${TIMER} ${FREETYPE} ${SCENE_SPRITE})
 
 # created for xorg X11 running form xWayland
 set(LIBS ${CMAKE_SOURCE_DIR}/dependencies/GLFW3/lib/libglfw3.a rt m dl X11 pthread xcb Xau)
