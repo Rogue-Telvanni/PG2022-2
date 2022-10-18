@@ -1,0 +1,3 @@
+/home/joao/college/processamentoGrafico/GrayScale/build/CMakeFiles/main.dir
+/home/joao/college/processamentoGrafico/GrayScale/build/CMakeFiles/edit_cache.dir
+/home/joao/college/processamentoGrafico/GrayScale/build/CMakeFiles/rebuild_cache.dir

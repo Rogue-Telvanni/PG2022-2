@@ -34,7 +34,9 @@ set(FREETYPE "${CMAKE_SOURCE_DIR}/HelloTriangle/ft2build.h")
 set(SCENE_SPRITE "${CMAKE_SOURCE_DIR}/HelloTriangle/SceneManager.h"
                  "${CMAKE_SOURCE_DIR}/HelloTriangle/SceneManager.cpp"
                  "${CMAKE_SOURCE_DIR}/HelloTriangle/Sprite.h"
-                 "${CMAKE_SOURCE_DIR}/HelloTriangle/Sprite.cpp")
+                 "${CMAKE_SOURCE_DIR}/HelloTriangle/Sprite.cpp"
+                 "${CMAKE_SOURCE_DIR}/HelloTriangle/TextRenderer.h"
+                 "${CMAKE_SOURCE_DIR}/HelloTriangle/TextRenderer.cpp")
 
 find_package(OpenGL REQUIRED)
 set(SOURCE_FILES ${CMAKE_SOURCE_DIR}/HelloTriangle/Source.cpp)

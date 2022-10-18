@@ -1,0 +1,34 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/dependencies/GLAD/src",
+                "${workspaceFolder}/dependencies/GLFW3",
+                "${workspaceFolder}/dependencies/GLAD/include",
+                "${workspaceFolder}/dependencies/glm",
+                "${workspaceFolder}/dependencies/FreeType",
+                "${workspaceFolder}/dependencies/FreeType/freetype",
+                "${workspaceFolder}/dependencies/FreeType/lib"
+            ],
+            "forcedInclude": [
+                "${workspaceFolder}/dependencies/GLAD/include/glad/glad.h"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "gnu17",
+            "cppStandard": "gnu++17",
+            "intelliSenseMode": "linux-gcc-x64",
+            "browse": {
+                "path": [
+                    "${workspaceFolder}"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            },
+            "configurationProvider": "ms-vscode.cmake-tools"
+        }
+    ],
+    "version": 4
+}

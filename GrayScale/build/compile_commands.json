@@ -1,0 +1,37 @@
+[
+{
+  "directory": "/home/joao/college/processamentoGrafico/GrayScale/build",
+  "command": "/usr/bin/g++ -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/GLFW3/include -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/GLFW3/lib -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/GLFW3 -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/GLAD/include -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/glm -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/FreeType/freetype -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/FreeType/lib -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/FreeType -I/usr/lib64 -g -o CMakeFiles/main.dir/HelloTriangle/Source.cpp.o -c /home/joao/college/processamentoGrafico/GrayScale/HelloTriangle/Source.cpp",
+  "file": "/home/joao/college/processamentoGrafico/GrayScale/HelloTriangle/Source.cpp"
+},
+{
+  "directory": "/home/joao/college/processamentoGrafico/GrayScale/build",
+  "command": "/usr/bin/gcc -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/GLFW3/include -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/GLFW3/lib -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/GLFW3 -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/GLAD/include -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/glm -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/FreeType/freetype -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/FreeType/lib -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/FreeType -I/usr/lib64 -g -o CMakeFiles/main.dir/dependencies/GLAD/src/glad.c.o -c /home/joao/college/processamentoGrafico/GrayScale/dependencies/GLAD/src/glad.c",
+  "file": "/home/joao/college/processamentoGrafico/GrayScale/dependencies/GLAD/src/glad.c"
+},
+{
+  "directory": "/home/joao/college/processamentoGrafico/GrayScale/build",
+  "command": "/usr/bin/g++ -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/GLFW3/include -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/GLFW3/lib -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/GLFW3 -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/GLAD/include -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/glm -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/FreeType/freetype -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/FreeType/lib -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/FreeType -I/usr/lib64 -g -o CMakeFiles/main.dir/HelloTriangle/Shader.cpp.o -c /home/joao/college/processamentoGrafico/GrayScale/HelloTriangle/Shader.cpp",
+  "file": "/home/joao/college/processamentoGrafico/GrayScale/HelloTriangle/Shader.cpp"
+},
+{
+  "directory": "/home/joao/college/processamentoGrafico/GrayScale/build",
+  "command": "/usr/bin/g++ -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/GLFW3/include -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/GLFW3/lib -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/GLFW3 -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/GLAD/include -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/glm -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/FreeType/freetype -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/FreeType/lib -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/FreeType -I/usr/lib64 -g -o CMakeFiles/main.dir/HelloTriangle/stb_image.cpp.o -c /home/joao/college/processamentoGrafico/GrayScale/HelloTriangle/stb_image.cpp",
+  "file": "/home/joao/college/processamentoGrafico/GrayScale/HelloTriangle/stb_image.cpp"
+},
+{
+  "directory": "/home/joao/college/processamentoGrafico/GrayScale/build",
+  "command": "/usr/bin/g++ -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/GLFW3/include -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/GLFW3/lib -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/GLFW3 -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/GLAD/include -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/glm -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/FreeType/freetype -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/FreeType/lib -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/FreeType -I/usr/lib64 -g -o CMakeFiles/main.dir/HelloTriangle/Timer.cpp.o -c /home/joao/college/processamentoGrafico/GrayScale/HelloTriangle/Timer.cpp",
+  "file": "/home/joao/college/processamentoGrafico/GrayScale/HelloTriangle/Timer.cpp"
+},
+{
+  "directory": "/home/joao/college/processamentoGrafico/GrayScale/build",
+  "command": "/usr/bin/g++ -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/GLFW3/include -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/GLFW3/lib -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/GLFW3 -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/GLAD/include -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/glm -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/FreeType/freetype -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/FreeType/lib -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/FreeType -I/usr/lib64 -g -o CMakeFiles/main.dir/HelloTriangle/SceneManager.cpp.o -c /home/joao/college/processamentoGrafico/GrayScale/HelloTriangle/SceneManager.cpp",
+  "file": "/home/joao/college/processamentoGrafico/GrayScale/HelloTriangle/SceneManager.cpp"
+},
+{
+  "directory": "/home/joao/college/processamentoGrafico/GrayScale/build",
+  "command": "/usr/bin/g++ -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/GLFW3/include -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/GLFW3/lib -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/GLFW3 -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/GLAD/include -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/glm -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/FreeType/freetype -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/FreeType/lib -I/home/joao/college/processamentoGrafico/GrayScale/dependencies/FreeType -I/usr/lib64 -g -o CMakeFiles/main.dir/HelloTriangle/Sprite.cpp.o -c /home/joao/college/processamentoGrafico/GrayScale/HelloTriangle/Sprite.cpp",
+  "file": "/home/joao/college/processamentoGrafico/GrayScale/HelloTriangle/Sprite.cpp"
+}
+]

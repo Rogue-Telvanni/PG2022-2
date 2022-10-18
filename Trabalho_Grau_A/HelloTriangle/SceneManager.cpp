@@ -4,7 +4,7 @@
 // static controllers for mouse and keyboard
 static bool keys[1024];
 static bool resized;
-static GLuint width, height;
+static GLuint sceneWidth, sceneHeight;
 static int dir;
 
 float tamanhoPersonagem = 150.0f;
@@ -19,6 +19,7 @@ bool descendo;
 float obstacleXtransform = 2000.0f;
 float obstacle2Xtransform = 2600.0f;
 float obstacle3Xtransform = 3350.0f;
+TextRenderer *Text;
 
 SceneManager::SceneManager()
 {
@@ -31,8 +32,8 @@ SceneManager::~SceneManager()
 
 void SceneManager::initialize(GLuint w, GLuint h)
 {
-	width = w;
-	height = h;
+	sceneWidth = w;
+	sceneHeight = h;
 
 	// GLFW - GLEW - OPENGL general setup -- TODO: config file
 	initializeGraphics();
@@ -44,7 +45,7 @@ void SceneManager::initializeGraphics()
 	glfwInit();
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	window = glfwCreateWindow(width, height, "Trabalho Grau A", nullptr, nullptr);
+	window = glfwCreateWindow(sceneWidth, sceneHeight, "Trabalho Grau A", nullptr, nullptr);
 	glfwMakeContextCurrent(window);
 
 	// Set the required callback functions
@@ -68,7 +69,7 @@ void SceneManager::initializeGraphics()
 
 	// Build and compile our shader program
 	addShader("../shaders/hello.vs", "../shaders/hello.fs"); // 0
-	// addShader("../shaders/sprite.vs", "../shaders/sprite.frag"); //1
+	addShader("../shaders/text.vs", "../shaders/text.fs"); // 1
 
 	// setup the scene -- LEMBRANDO QUE A DESCRIÇÃO DE UMA CENA PODE VIR DE ARQUIVO(S) DE
 	//  CONFIGURAÇÃO
@@ -120,12 +121,12 @@ void SceneManager::key_callback(GLFWwindow *window, int key, int scancode, int a
 
 void SceneManager::resize(GLFWwindow *window, int w, int h)
 {
-	width = w;
-	height = h;
+	sceneWidth = w;
+	sceneHeight = h;
 	resized = true;
 
 	// Define the viewport dimensions
-	glViewport(0, 0, width, height);
+	glViewport(0, 0, sceneWidth, sceneHeight);
 }
 
 void SceneManager::update()
@@ -169,10 +170,11 @@ void SceneManager::render()
 		resized = false;
 	}
 
+	timer.start();
+
 	Shader shader = *shaders[0];
 	shader.Use();
 
-	timer.start();
 	if (parar)
 	{
 		obsDecrease = 0.0f;
@@ -202,11 +204,12 @@ void SceneManager::render()
 	glLineWidth(10);
 
 	/// IMAGEM DE BACKGROUND
+	
 
 	// Atualizando a matriz de modelo
 	glm::mat4 model = glm::mat4(1); // matriz de modelo: transformações na geometria
-	model = glm::translate(model, glm::vec3(width / 2, height / 2, 0.0f));
-	model = glm::scale(model, glm::vec3(width, height, 1.0f));
+	model = glm::translate(model, glm::vec3(sceneWidth / 2, sceneHeight / 2, 0.0f));
+	model = glm::scale(model, glm::vec3(sceneWidth, sceneHeight, 1.0f));
 	shader.setMat4("model", glm::value_ptr(model));
 	// Conectando com a textura a ser usada
 	glBindTexture(GL_TEXTURE_2D, textIDs[0]);
@@ -217,12 +220,11 @@ void SceneManager::render()
 
 	// personagem
 	tamanhoPersonagem += aumentoDeAltura;
-	cout<<tamanhoPersonagem<<endl;
 	if (tamanhoPersonagem == 150.0f)
 	{
 		descendo = false;
 		if (noAr)
-			personagem.setIdFrame(5);
+			personagem.setIdFrame(6);
 		noAr = false;
 		aumentoDeAltura = 0.0f;
 		rotacao = 0.0f;
@@ -253,8 +255,8 @@ void SceneManager::render()
 	float charactery = tamanhoPersonagem;
 
 	personagem.desenhar();
-	if (personagem.GetFrame() == 0)
-		personagem.setIdFrame(5);
+	if (personagem.GetFrame() < 6)
+		personagem.setIdFrame(6);
 
 	// obstacle 1
 	model = glm::mat4(1);
@@ -317,6 +319,8 @@ void SceneManager::render()
 		parar = true;
 	}
 	// Troca os buffers da tela
+	Text->RenderText("Teste", 100.0f, 100.0f, 1.0f);
+	
 	timer.finish();
 	double waitingTime = timer.calcWaitingTime(60, timer.getElapsedTimeMs());
 	if (waitingTime)
@@ -402,6 +406,7 @@ void SceneManager::setupScene()
 	// Habilitar o teste de profundidade
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_ALWAYS);
+	//glEnable(GL_CULL_FACE);
 
 	// Habilitar a transparência
 	glEnable(GL_BLEND);
@@ -420,6 +425,8 @@ void SceneManager::setupScene()
 	personagem.inicializar(textIDs[2], glm::vec3(100.0f, 100.f, 1.0f), 12, 10);
 	personagem.setShader(shaders[0]);
 	personagem.setIdAnim(5);
+	Text = new TextRenderer(sceneWidth, sceneHeight, shaders[1]);
+    Text->Load("../fonts/BitterPro-Regular.ttf", 24);
 }
 
 int SceneManager::RenderSquareObject(Shader *shader, float v1, float v2, glm::vec3 color)
@@ -466,10 +473,10 @@ int SceneManager::RenderSquareObject(Shader *shader, float v1, float v2, glm::ve
 
 void SceneManager::setupCamera2D()
 {
-	glViewport(0, 0, width, height);
+	glViewport(0, 0, sceneWidth, sceneHeight);
 
 	// Setando o tamanho da janela do mundo
-	float xMin = 0.0f, xMax = width, yMin = 0.0f, yMax = height, zNear = -1.0f, zFar = 1.0f;
+	float xMin = 0.0f, xMax = sceneWidth, yMin = 0.0f, yMax = sceneHeight, zNear = -3.0f, zFar = 3.0f;
 	projection = glm::ortho(xMin, xMax, yMin, yMax, zNear, zFar);
 
 	// Passando para os shaders que a usam
@@ -525,112 +532,3 @@ int SceneManager::setupTexture(string filePath, int &largura, int &altura, int &
 
 	return texID;
 }
-
-
-//textRendering still needs work
-
-// struct Character {
-//     unsigned int TextureID;  // ID handle of the glyph texture
-//     glm::ivec2   Size;       // Size of glyph
-//     glm::ivec2   Bearing;    // Offset from baseline to left/top of glyph
-//     long Advance;    // Offset to advance to next glyph
-// };
-
-// std::map<char, Character> Characters;
-
-// void RenderText(Shader &shader, std::string text, float x, float y, float scale, glm::vec3 color)
-// {
-//     // iterate through all characters
-//     std::string::const_iterator c;
-//     for (c = text.begin(); c != text.end(); c++) 
-//     {
-//         Character ch = Characters[*c];
-
-//         float xpos = x + ch.Bearing.x * scale;
-//         float ypos = y - (ch.Size.y - ch.Bearing.y) * scale;
-
-//         float w = ch.Size.x * scale;
-//         float h = ch.Size.y * scale;
-//         // update VBO for each character
-//         float vertices[6][4] = {
-//             { xpos,     ypos + h,   0.0f, 0.0f },            
-//             { xpos,     ypos,       0.0f, 1.0f },
-//             { xpos + w, ypos,       1.0f, 1.0f },
-
-//             { xpos,     ypos + h,   0.0f, 0.0f },
-//             { xpos + w, ypos,       1.0f, 1.0f },
-//             { xpos + w, ypos + h,   1.0f, 0.0f }           
-//         };
-//         // render glyph texture over quad
-//         glBindTexture(GL_TEXTURE_2D, ch.TextureID);
-
-// 		unsigned int VAO, VBO;
-// 		glGenVertexArrays(1, &VAO);
-
-// 		glGenBuffers(1, &VBO);
-// 		glBindVertexArray(VAO);
-// 		glUniform3f(glGetUniformLocation(shader.ID, "textColor"), color.x, color.y, color.z);
-// 		glBindVertexArray(VAO);
-
-// 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-// 		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
-// 		glEnableVertexAttribArray(0);
-// 		glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), 0);
-// 		glBindBuffer(GL_ARRAY_BUFFER, 0);
-// 		glBindVertexArray(0);
-// 		// update content of VBO memory
-// 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-//         glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices); // be sure to use glBufferSubData and not glBufferData
-
-//         glBindBuffer(GL_ARRAY_BUFFER, 0);
-//         // render quad
-//         glDrawArrays(GL_TRIANGLES, 0, 6);
-//         // now advance cursors for next glyph (note that advance is number of 1/64 pixels)
-//         x += (ch.Advance >> 6) * scale; // bitshift by 6 to get value in pixels (2^6 = 64 (divide amount of 1/64th pixels by 64 to get amount of pixels))
-//     }
-//     glBindVertexArray(0);
-//     glBindTexture(GL_TEXTURE_2D, 0);
-// }
-
-// void generateCharacters(FT_Face face, FT_Library ft)
-// {
-// 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // disable byte-alignment restriction
-
-// 	for (unsigned char c = 0; c < 128; c++)
-// 	{
-// 		// load character glyph
-// 		if (FT_Load_Char(face, c, FT_LOAD_RENDER))
-// 		{
-// 			std::cout << "ERROR::FREETYTPE: Failed to load Glyph" << std::endl;
-// 			continue;
-// 		}
-// 		// generate texture
-// 		unsigned int texture;
-// 		glGenTextures(1, &texture);
-// 		glBindTexture(GL_TEXTURE_2D, texture);
-// 		glTexImage2D(
-// 			GL_TEXTURE_2D,
-// 			0,
-// 			GL_RED,
-// 			face->glyph->bitmap.width,
-// 			face->glyph->bitmap.rows,
-// 			0,
-// 			GL_RED,
-// 			GL_UNSIGNED_BYTE,
-// 			face->glyph->bitmap.buffer);
-// 		// set texture options
-// 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-// 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-// 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-// 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-// 		// now store character for later use
-// 		Character character = {
-// 			texture,
-// 			glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
-// 			glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
-// 			face->glyph->advance.x};
-// 		Characters.insert(std::pair<char, Character>(c, character));
-// 	}
-// 	FT_Done_Face(face);
-// 	FT_Done_FreeType(ft);
-// }

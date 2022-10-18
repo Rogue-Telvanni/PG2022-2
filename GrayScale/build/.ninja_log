@@ -1,0 +1,9 @@
+# ninja log v5
+5	236	1665593165295981004	CMakeFiles/main.dir/HelloTriangle/Timer.cpp.o	694d178143342ec4
+5	880	1665593165937971906	CMakeFiles/main.dir/HelloTriangle/stb_image.cpp.o	f474bfcfb7cc1343
+4	281	1665593165339980380	CMakeFiles/main.dir/dependencies/GLAD/src/glad.c.o	fc6ab0997bff7c16
+4	1419	1665593511305077628	CMakeFiles/main.dir/HelloTriangle/SceneManager.cpp.o	a376cbf45b9854fb
+4	454	1665593165513977914	CMakeFiles/main.dir/HelloTriangle/Shader.cpp.o	a4efa636a14c22e3
+4	1443	1665593166501963913	CMakeFiles/main.dir/HelloTriangle/Source.cpp.o	415197445ed89b83
+5	1410	1665593166467964395	CMakeFiles/main.dir/HelloTriangle/Sprite.cpp.o	4efd2a3e2fff12b
+1419	1572	1665593511457075474	main	8eb40b32ac22a50b

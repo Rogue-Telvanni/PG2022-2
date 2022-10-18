@@ -2,6 +2,7 @@
 
 #include "Shader.h"
 #include "Timer.h"
+#include "TextRenderer.h"
 #include "stb_image.h"
 #include "Sprite.h"
 

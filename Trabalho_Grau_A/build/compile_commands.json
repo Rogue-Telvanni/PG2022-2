@@ -33,5 +33,10 @@
   "directory": "/home/joao/college/processamentoGrafico/Trabalho_Grau_A/build",
   "command": "/usr/bin/g++ -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3/include -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3/lib -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3 -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLAD/include -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/glm -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/FreeType/freetype -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/FreeType/lib -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/FreeType -I/usr/lib64 -g -o CMakeFiles/main.dir/HelloTriangle/Sprite.cpp.o -c /home/joao/college/processamentoGrafico/Trabalho_Grau_A/HelloTriangle/Sprite.cpp",
   "file": "/home/joao/college/processamentoGrafico/Trabalho_Grau_A/HelloTriangle/Sprite.cpp"
+},
+{
+  "directory": "/home/joao/college/processamentoGrafico/Trabalho_Grau_A/build",
+  "command": "/usr/bin/g++ -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3/include -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3/lib -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLFW3 -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/GLAD/include -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/glm -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/FreeType/freetype -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/FreeType/lib -I/home/joao/college/processamentoGrafico/Trabalho_Grau_A/dependencies/FreeType -I/usr/lib64 -g -o CMakeFiles/main.dir/HelloTriangle/TextRenderer.cpp.o -c /home/joao/college/processamentoGrafico/Trabalho_Grau_A/HelloTriangle/TextRenderer.cpp",
+  "file": "/home/joao/college/processamentoGrafico/Trabalho_Grau_A/HelloTriangle/TextRenderer.cpp"
 }
 ]
